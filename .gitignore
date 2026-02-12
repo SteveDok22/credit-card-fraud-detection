@@ -205,3 +205,12 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# Kaggle credentials
+kaggle.json
+
+# Large data files
+data/creditcard.csv
+
+# Streamlit config
+.streamlit/
