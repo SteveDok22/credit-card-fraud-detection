@@ -9,6 +9,31 @@ A Machine Learning powered web application for detecting fraudulent credit card 
 ## Table of Contents
 
 
+
+---
+
+## Project Overview
+
+### Purpose
+
+Credit Card Fraud Detection System is a Machine Learning powered web application that helps financial institutions detect fraudulent credit card transactions. The system combines **supervised classification** (XGBoost) with **unsupervised anomaly detection** (Autoencoder) to provide a comprehensive fraud detection solution with explainable predictions.
+
+### Target Audience
+
+- **Risk Analysts:** Professionals investigating flagged transactions who need explainable fraud predictions
+- **Risk Managers:** Decision-makers who need to understand fraud patterns and optimise detection thresholds
+- **Data Science Teams:** Teams evaluating ML approaches for fraud detection pipelines
+- **FinTech Companies:** Organisations seeking to improve their fraud detection capabilities
+
+### Value Proposition
+
+- Detect fraudulent transactions with high accuracy using dual ML pipelines
+- Understand **why** a transaction was flagged through SHAP explainability
+- Optimise detection thresholds based on business cost trade-offs
+- Identify novel fraud patterns that supervised models might miss
+
+
+
 ---
 
 ## Business Requirements
