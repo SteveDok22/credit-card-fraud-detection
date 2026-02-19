@@ -47,3 +47,9 @@ A fictional FinTech payment processing company, **SecurePay Solutions**, has bee
 **BR3:** The client wants an unsupervised anomaly detection system that can identify novel fraud patterns without relying on historical labels, as a complementary approach to the supervised model.
 
 ---
+
+## ML Business Case
+
+### ML Business Case 1: Supervised Fraud Classification (BR2)
+
+| Element | Detail |
