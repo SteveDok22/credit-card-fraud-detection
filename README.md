@@ -36,6 +36,37 @@ Credit Card Fraud Detection System is a Machine Learning powered web application
 
 ---
 
+---
+
+## Dataset Content
+
+The dataset contains credit card transactions made by European cardholders in September 2013, collected over a period of two days.
+
+| Attribute | Detail |
+|-----------|--------|
+| **Total Transactions** | 284,807 |
+| **Fraud Cases** | 492 (0.17%) |
+| **Legitimate Cases** | 284,315 (99.83%) |
+| **Features** | 31 columns |
+| **Imbalance Ratio** | ~577:1 |
+
+### Feature Description
+
+| Feature | Type | Description |
+|---------|------|-------------|
+| Time | Float | Seconds elapsed from first transaction |
+| V1 — V28 | Float | PCA-transformed components (anonymised for confidentiality) |
+| Amount | Float | Transaction amount in Euros |
+| Class | Integer | Target — 0 (legitimate) or 1 (fraud) |
+
+**Source:** [Kaggle — Credit Card Fraud Detection](https://www.kaggle.com/mlg-ulb/creditcardfraud)
+
+The dataset was collected and analysed during a research collaboration of Worldline and the Machine Learning Group of ULB (Université Libre de Bruxelles).
+
+**Citation:** Andrea Dal Pozzolo, Olivier Caelen, Reid A. Johnson, and Gianluca Bontempi. *Calibrating Probability with Undersampling for Unbalanced Classification.* In Symposium on Computational Intelligence and Data Mining (CIDM), IEEE, 2015.
+
+---
+
 ## Business Requirements
 
 A fictional FinTech payment processing company, **SecurePay Solutions**, has been experiencing increasing losses due to fraudulent transactions. The Head of Risk Management has requested a data-driven solution to improve their fraud detection capabilities.
@@ -72,6 +103,21 @@ A fictional FinTech payment processing company, **SecurePay Solutions**, has bee
 
 ---
 
+## Rationale to Map Business Requirements to Data Visualisations and ML Tasks
+
+### BR1: Fraud Pattern Analysis
+
+**User Stories:**
+
+### BR2: Supervised Fraud Prediction
+
+**User Stories:**
+
+### BR3: Unsupervised Anomaly Detection
+
+**User Stories:**
+
+---
 
 ## ML Business Case
 
