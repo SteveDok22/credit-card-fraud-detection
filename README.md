@@ -124,3 +124,52 @@ A fictional FinTech payment processing company, **SecurePay Solutions**, has bee
 ### ML Business Case 1: Supervised Fraud Classification (BR2)
 
 | Element | Detail |
+
+
+### ML Business Case 2: Unsupervised Anomaly Detection (BR3)
+
+| Element | Detail |
+
+---
+
+## Dashboard Design
+
+### Page 1: Project Summary
+- Overview of the dataset and business context
+- Three business requirements displayed
+- ML terminology glossary in expandable section
+- Quick links to key pages
+
+### Page 2: Fraud Pattern Study (BR1)
+- Interactive checkbox-controlled visualisations
+- 5+ plot types: bar chart, histogram, heatmap, violin, line plot, scatter
+- Textual interpretation below each visualisation
+- BR1 conclusion summary
+- **Answers BR1**
+
+### Page 3: Project Hypotheses
+- Four hypotheses with statistical test results
+- Side-by-side visualisations and metric displays
+- Validated/Not Validated status indicators
+- Potential courses of action for each hypothesis
+
+### Page 4: Fraud Detector (BR2)
+- Three input modes: Manual Entry, CSV Upload, Live Simulation
+- Real-time fraud probability gauge
+- SHAP waterfall explanation for each prediction
+- Batch processing results with risk colour coding
+- **Answers BR2**
+
+### Page 5: Threshold & Cost Analysis
+- Interactive threshold slider (0.05 — 0.95)
+- Real-time confusion matrix updates
+- Business cost calculator (missed fraud cost vs investigation cost)
+- Cost-optimal threshold recommendation with visualisation
+
+### Page 6: Anomaly Detection (BR3)
+-
+
+### Page 7: ML Pipeline Performance
+-
+
+---
