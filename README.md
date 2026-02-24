@@ -167,9 +167,18 @@ A fictional FinTech payment processing company, **SecurePay Solutions**, has bee
 - Cost-optimal threshold recommendation with visualisation
 
 ### Page 6: Anomaly Detection (BR3)
--
+- Autoencoder architecture explanation
+- Reconstruction error distribution by class
+- Interactive anomaly threshold selection
+- Supervised vs unsupervised comparison
+- **Answers BR3**
 
 ### Page 7: ML Pipeline Performance
--
+- Algorithm comparison table (Random Forest vs Gradient Boosting vs XGBoost)
+- Confusion matrices for train and test sets
+- ROC Curve and Precision-Recall Curve
+- SHAP global feature importance plot
+- Hyperparameter tuning details with rationale
+- Clear model success/failure statement
 
 ---
