@@ -182,3 +182,52 @@ A fictional FinTech payment processing company, **SecurePay Solutions**, has bee
 - Clear model success/failure statement
 
 ---
+
+## Technologies Used
+
+### Languages
+
+- Python 3.11
+
+### Frameworks & Libraries
+
+#### Machine Learning & Data Science
+
+| Library | Version | Purpose |
+|---------|---------|---------|
+| pandas | 2.1.0 | Data manipulation and analysis |
+| numpy | 1.24.0 | Numerical computing |
+| scikit-learn | 1.3.0 | ML preprocessing, evaluation, pipelines |
+| xgboost | 2.0.0 | Gradient boosting classifier |
+
+#### Data Visualisation
+
+| Library | Version | Purpose |
+|---------|---------|---------|
+
+
+#### Web Application
+
+| Library | Version | Purpose |
+|---------|---------|---------|
+| streamlit | 1.28.0 | Dashboard web application |
+| joblib | 1.3.0 | Model serialisation and loading |
+
+#### Data Collection
+
+| Library | Version | Purpose |
+|---------|---------|---------|
+| kaggle | 1.6.0 | Dataset download from Kaggle API |
+
+### Tools & Services
+
+| Tool | Purpose |
+|------|---------|
+| Git | Version control |
+| GitHub | Repository hosting |
+| GitHub Projects | Agile project management |
+| Render | Cloud deployment |
+| Jupyter Notebook | Data analysis and modelling |
+| VS Code | Code editor |
+
+---
