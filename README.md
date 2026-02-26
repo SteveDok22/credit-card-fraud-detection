@@ -199,6 +199,10 @@ A fictional FinTech payment processing company, **SecurePay Solutions**, has bee
 | numpy | 1.24.0 | Numerical computing |
 | scikit-learn | 1.3.0 | ML preprocessing, evaluation, pipelines |
 | xgboost | 2.0.0 | Gradient boosting classifier |
+| imbalanced-learn | 0.11.0 | SMOTE oversampling for class imbalance |
+| shap | 0.42.0 | Model explainability (SHAP values) |
+| tensorflow-cpu | 2.13.0 | Autoencoder neural network |
+| scipy | 1.11.0 | Statistical hypothesis testing |
 
 #### Data Visualisation
 
