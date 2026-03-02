@@ -32,9 +32,24 @@ Credit Card Fraud Detection System is a Machine Learning powered web application
 - Optimise detection thresholds based on business cost trade-offs
 - Identify novel fraud patterns that supervised models might miss
 
+### CRISP-DM Process
 
+This project follows the **CRISP-DM** (Cross-Industry Standard Process for Data Mining) methodology:
 
----
+| Phase | Description | Deliverable |
+|-------|-------------|-------------|
+| Business Understanding | Define fraud detection requirements | Business Requirements (BR1-BR3) |
+| Data Understanding | Explore and visualise transaction data | Notebooks 01-02, Dashboard Page 2 |
+| Data Preparation | Clean, engineer features, handle imbalance | Notebooks 03-04 |
+| Modelling | Train XGBoost + Autoencoder pipelines | Notebooks 05-06 |
+| Evaluation | Validate against business success metrics | Notebook 07, Dashboard Page 7 |
+| Deployment | Streamlit dashboard on Render | Live application |
+
+### ML Pipeline Flow
+
+<div align="center">
+<img src="docs\images\ml-pipeline-flow.png" alt="ML Pipeline Flow" width="900">
+</div>
 
 ---
 
