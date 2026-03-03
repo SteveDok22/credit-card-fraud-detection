@@ -124,13 +124,45 @@ A fictional FinTech payment processing company, **SecurePay Solutions**, has bee
 
 **User Stories:**
 
+| ID | As a... | I want to... | So that I can... |
+|----|---------|--------------|------------------|
+| 1.1 | Risk Analyst | See the distribution of transaction amounts for fraud vs legitimate | Understand typical fraud behaviour |
+| 1.2 | Risk Analyst | See which features correlate most strongly with fraud | Identify key risk indicators |
+| 1.3 | Risk Analyst | See temporal patterns in fraud occurrence | Allocate monitoring resources effectively |
+| 1.4 | Risk Analyst | Compare PCA feature distributions between classes | Understand which signals separate fraud |
+
+**Data Visualisation Tasks:**
+- Class distribution bar chart
+- Amount distribution histograms with box plot marginals
+- Correlation heatmap of top features vs fraud class
+- Violin plots of top discriminating PCA components
+- Fraud rate line plot by hour of day
+- 2D scatter plot of top separating features
+
 ### BR2: Supervised Fraud Prediction
 
 **User Stories:**
 
+| ID | As a... | I want to... | So that I can... |
+|----|---------|--------------|------------------|
+| 2.1 | Fraud Analyst | Input transaction details and get a fraud probability | Make quick decisions on flagged transactions |
+| 2.2 | Fraud Analyst | See why a transaction was flagged (SHAP explanation) | Explain decisions to customers and stakeholders |
+| 2.3 | Team Lead | Upload a batch of transactions and see which are flagged | Prioritise the review queue |
+| 2.4 | Team Lead | Adjust the decision threshold based on cost trade-offs | Balance missed fraud vs false alarms |
+
+**ML Task:** Binary classification using XGBoost with SMOTE oversampling and SHAP explainability.
+
 ### BR3: Unsupervised Anomaly Detection
 
 **User Stories:**
+
+| ID | As a... | I want to... | So that I can... |
+|----|---------|--------------|------------------|
+| 3.1 | Risk Manager | Detect unusual transactions without relying on historical fraud labels | Catch novel fraud types not seen before |
+| 3.2 | Risk Manager | Compare supervised and unsupervised approaches | Understand the value each brings to detection |
+
+**ML Task:** Autoencoder-based anomaly detection trained on legitimate transactions only.
+
 
 ---
 
