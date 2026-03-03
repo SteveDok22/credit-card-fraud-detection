@@ -163,7 +163,6 @@ A fictional FinTech payment processing company, **SecurePay Solutions**, has bee
 
 **ML Task:** Autoencoder-based anomaly detection trained on legitimate transactions only.
 
-
 ---
 
 ## ML Business Case
@@ -180,7 +179,6 @@ A fictional FinTech payment processing company, **SecurePay Solutions**, has bee
 | **Failure Condition** | F1 < 0.60 or Recall < 0.50 |
 | **Training Data** | 284,807 transactions, 30 features + 8 engineered features. 80/20 stratified split |
 
-
 ### ML Business Case 2: Unsupervised Anomaly Detection (BR3)
 
 | Element | Detail |
@@ -192,6 +190,7 @@ A fictional FinTech payment processing company, **SecurePay Solutions**, has bee
 | **Success Metrics** | Recall >= 0.60 on known fraud cases (without having seen labels) · Precision >= 0.10 (acceptable for anomaly detection where flagged items go to manual review) |
 | **Failure Condition** | Recall < 0.30 (misses most fraud entirely) |
 | **Training Data** | Only legitimate transactions from training set (~227,451 transactions). Evaluated against full test set |
+
 ---
 
 ## Dashboard Design
@@ -242,6 +241,66 @@ A fictional FinTech payment processing company, **SecurePay Solutions**, has bee
 - SHAP global feature importance plot
 - Hyperparameter tuning details with rationale
 - Clear model success/failure statement
+
+---
+
+## Features
+
+### Existing Features
+
+#### F1: Interactive Fraud Pattern Study
+
+<div align="center">
+<img src="docs/screenshots/fraud-study.png" alt="Fraud Study Screenshot" width="700">
+</div>
+
+---
+
+#### F2: Fraud Detector with SHAP Explainability
+
+<div align="center">
+<img src="docs/screenshots/fraud-detector.png" alt="Fraud Detector Screenshot" width="700">
+</div>
+
+---
+
+#### F3: Threshold & Cost Analysis
+
+<div align="center">
+<img src="docs/screenshots/threshold-analysis.png" alt="Threshold Analysis Screenshot" width="700">
+</div>
+
+---
+
+#### F4: Anomaly Detection System
+
+<div align="center">
+<img src="docs/screenshots/anomaly-detection.png" alt="Anomaly Detection Screenshot" width="700">
+</div>
+
+---
+
+#### F5: ML Pipeline Performance Dashboard
+
+<div align="center">
+<img src="docs/screenshots/ml-performance.png" alt="ML Performance Screenshot" width="700">
+</div>
+
+---
+
+#### F6: Statistical Hypothesis Validation
+
+<div align="center">
+<img src="docs/screenshots/hypotheses.png" alt="Hypotheses Screenshot" width="700">
+</div>
+
+---
+
+#### F7: Responsive Navigation
+
+- Sidebar navigation with 7 dashboard pages
+- Clear page titles and business requirement labels
+- Consistent layout across all pages
 
 ---
 
