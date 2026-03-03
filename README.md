@@ -250,3 +250,174 @@ A fictional FinTech payment processing company, **SecurePay Solutions**, has bee
 | VS Code | Code editor |
 
 ---
+
+## Agile Methodology
+
+### GitHub Projects Board
+
+This project was developed using Agile methodology with GitHub Projects as the management tool.
+
+**Board Link:** [Fraud Detection Project Board](https://github.com/users/SteveDok22/projects/XX)
+
+### Sprint Structure
+
+
+### User Stories
+
+All user stories were created as GitHub Issues with:
+- Acceptance Criteria
+- Tasks checklist
+- Labels (Must Have, Should Have, Could Have)
+- Linked to Business Requirements
+
+---
+
+## Testing
+
+### Manual Testing
+
+| Feature | Action | Expected | Result |
+|---------|--------|----------|--------|
+
+### User Story Testing
+
+| User Story | Acceptance Criteria Met | Evidence |
+|------------|----------------------|---------|
+
+### Validator Testing
+
+#### Python (PEP8 / Flake8)
+
+
+<div align="center">
+
+| File | Lines | Issues | Status |
+|------|-------|--------|--------|
+
+
+</div>
+
+#### Jupyter Notebooks
+
+All notebooks follow PEP8 standards and include Objectives/Inputs/Outputs headers.
+
+---
+
+### Bugs
+
+### Resolved Issues
+
+*Bugs will be documented as they are encountered during development.*
+
+
+### Known Issues
+
+| Issue | Description | Impact | Workaround |
+|-------|-------------|--------|------------|
+| — | — | — | — |
+
+---
+
+## Deployment
+
+### Render Deployment
+
+The application is deployed on Render.
+
+**Live URL:** https://-app.onrender.com
+
+#### Deployment Steps
+
+1. **Create Render Account**
+   - Sign up at [Render](https://render.com)
+
+2. **Create New Web Service**
+   - Click "New" → "Web Service"
+   - Connect to GitHub repository
+
+3. **Configure Build Settings**
+
+   | Setting | Value |
+   |---------|-------|
+   | **Build Command** | `pip install -r requirements.txt` |
+   | **Start Command** | `streamlit run app.py --server.port $PORT --server.headless true` |
+   | **Python Version** | 3.11.5 |
+
+4. **Deploy**
+   - Click "Create Web Service"
+   - Wait for build to complete
+
+---
+
+### Local Development
+
+#### Prerequisites
+- Python 3.11+
+- Git
+- Kaggle account (for dataset download)
+
+#### Setup Steps
+
+1. **Clone Repository**
+```bash
+git clone https://github.com/SteveDok22/credit-card-fraud-detection.git
+cd credit-card-fraud-detection
+```
+
+2. **Create Virtual Environment**
+```bash
+python -m venv venv
+source venv/bin/activate    # Mac/Linux
+venv\Scripts\activate       # Windows
+```
+
+3. **Install Dependencies**
+```bash
+pip install -r requirements.txt
+```
+
+4. **Download Dataset**
+   - Place `kaggle.json` in project root
+   - Run Notebook 01 to download the dataset
+
+5. **Run Application**
+```bash
+streamlit run app.py
+```
+
+---
+
+### Forking the Repository
+
+1. Go to [GitHub Repository](https://github.com/SteveDok22/credit-card-fraud-detection)
+2. Click "Fork" button (top right)
+3. Clone forked repository
+
+### Cloning the Repository
+
+```bash
+git clone https://github.com/YOUR-USERNAME/credit-card-fraud-detection.git
+cd credit-card-fraud-detection
+```
+
+---
+
+## Credits
+
+### Dataset
+- [Credit Card Fraud Detection Dataset](https://www.kaggle.com/mlg-ulb/creditcardfraud) — Machine Learning Group of ULB (Université Libre de Bruxelles) in collaboration with Worldline
+
+### Documentation & Tutorials
+
+| Resource | Usage |
+|----------|-------|
+
+
+### Code References
+- Code Institute — CRISP-DM methodology and project structure guidance
+- [Kaggle Notebooks](https://www.kaggle.com/mlg-ulb/creditcardfraud/code) — General approach inspiration (all code written independently)
+
+### Acknowledgements
+- **Code Institute** — For the learning materials and assessment framework
+
+---
