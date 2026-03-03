@@ -261,6 +261,9 @@ This project was developed using Agile methodology with GitHub Projects as the m
 
 ### Sprint Structure
 
+<div align="center">
+<img src="docs\images\sprint-structure.png" alt="Sprint Structure" width="900">
+</div>
 
 ### User Stories
 
