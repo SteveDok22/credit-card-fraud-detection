@@ -171,12 +171,27 @@ A fictional FinTech payment processing company, **SecurePay Solutions**, has bee
 ### ML Business Case 1: Supervised Fraud Classification (BR2)
 
 | Element | Detail |
+|---------|--------|
+| **Aim** | Build a binary classifier to predict fraudulent vs legitimate transactions with explainable predictions |
+| **Learning Method** | Supervised learning — binary classification using gradient boosting (XGBoost) with SMOTE oversampling for class imbalance (fraud = ~0.17% of transactions) |
+| **Ideal Outcome** | Flag fraudulent transactions for review with high recall while keeping false positives manageable. Each prediction includes SHAP-based feature contribution explanation |
+| **Model Output** | Fraud probability (0-1) per transaction + SHAP waterfall showing top contributing features. Configurable decision threshold optimised for business cost trade-off |
+| **Success Metrics** | F1 >= 0.80 on fraud class (primary) · Precision >= 0.75 · Recall >= 0.75 · AUC-ROC >= 0.95 |
+| **Failure Condition** | F1 < 0.60 or Recall < 0.50 |
+| **Training Data** | 284,807 transactions, 30 features + 8 engineered features. 80/20 stratified split |
 
 
 ### ML Business Case 2: Unsupervised Anomaly Detection (BR3)
 
 | Element | Detail |
-
+|---------|--------|
+| **Aim** | Build an autoencoder-based anomaly detection system that identifies unusual transaction patterns without relying on fraud labels |
+| **Learning Method** | Unsupervised learning — autoencoder neural network trained on legitimate transactions only. High reconstruction error indicates anomalous (potentially fraudulent) transactions |
+| **Ideal Outcome** | Detect novel fraud patterns that the supervised model might miss because they were not present in the training labels |
+| **Model Output** | Reconstruction error score per transaction. Threshold set at chosen percentile of training reconstruction errors |
+| **Success Metrics** | Recall >= 0.60 on known fraud cases (without having seen labels) · Precision >= 0.10 (acceptable for anomaly detection where flagged items go to manual review) |
+| **Failure Condition** | Recall < 0.30 (misses most fraud entirely) |
+| **Training Data** | Only legitimate transactions from training set (~227,451 transactions). Evaluated against full test set |
 ---
 
 ## Dashboard Design
