@@ -254,6 +254,11 @@ A fictional FinTech payment processing company, **SecurePay Solutions**, has bee
 <img src="docs/screenshots/fraud-study.png" alt="Fraud Study Screenshot" width="700">
 </div>
 
+- Checkbox-controlled visualisations for exploring fraud patterns
+- 7+ plot types using Plotly and Seaborn
+- Textual interpretation for every visualisation
+- Interactive feature selection via dropdown
+
 ---
 
 #### F2: Fraud Detector with SHAP Explainability
@@ -261,6 +266,12 @@ A fictional FinTech payment processing company, **SecurePay Solutions**, has bee
 <div align="center">
 <img src="docs/screenshots/fraud-detector.png" alt="Fraud Detector Screenshot" width="700">
 </div>
+
+- Manual transaction entry with sliders for key features
+- Real-time fraud probability score with gauge visualisation
+- **SHAP waterfall** showing why each prediction was made
+- CSV batch upload for processing multiple transactions
+- Live transaction simulation mode
 
 ---
 
@@ -270,6 +281,11 @@ A fictional FinTech payment processing company, **SecurePay Solutions**, has bee
 <img src="docs/screenshots/threshold-analysis.png" alt="Threshold Analysis Screenshot" width="700">
 </div>
 
+- Interactive threshold slider with real-time metric updates
+- Dynamic confusion matrix
+- Business cost calculator with configurable costs
+- Optimal threshold recommendation
+
 ---
 
 #### F4: Anomaly Detection System
@@ -277,6 +293,11 @@ A fictional FinTech payment processing company, **SecurePay Solutions**, has bee
 <div align="center">
 <img src="docs/screenshots/anomaly-detection.png" alt="Anomaly Detection Screenshot" width="700">
 </div>
+
+- Autoencoder-based unsupervised fraud detection
+- Reconstruction error distribution visualisation
+- Supervised vs unsupervised comparison
+- Complementary detection layer for novel fraud patterns
 
 ---
 
@@ -286,6 +307,11 @@ A fictional FinTech payment processing company, **SecurePay Solutions**, has bee
 <img src="docs/screenshots/ml-performance.png" alt="ML Performance Screenshot" width="700">
 </div>
 
+- Algorithm comparison across RF, GB, and XGBoost
+- Train and test set evaluation with confusion matrices
+- ROC and Precision-Recall curves
+- SHAP global feature importance
+
 ---
 
 #### F6: Statistical Hypothesis Validation
@@ -293,6 +319,11 @@ A fictional FinTech payment processing company, **SecurePay Solutions**, has bee
 <div align="center">
 <img src="docs/screenshots/hypotheses.png" alt="Hypotheses Screenshot" width="700">
 </div>
+
+- Four hypotheses validated with statistical tests
+- Mann-Whitney U, Chi-squared tests with effect sizes
+- Visual evidence alongside statistical results
+- Potential courses of action
 
 ---
 
