@@ -447,14 +447,46 @@ All notebooks follow PEP8 standards and include Objectives/Inputs/Outputs header
 
 ### Resolved Issues
 
-*Bugs will be documented as they are encountered during development.*
+#### Bug #1: Notebook File Missing .ipynb Extension
+**Issue:** Jupyter notebook created without `.ipynb` extension — file named `01_DataCollection` instead of `01_DataCollection.ipynb`
+**Cause:** File was created/saved without the proper extension in VS Code
+**Fix:** Renamed the file manually via PowerShell:
+```bash
+ren notebooks\01_DataCollection notebooks\01_DataCollection.ipynb
+```
+**Status:** ✅ Resolved
 
+---
+
+#### Bug #2: Linux Commands Not Recognised on Windows
+**Issue:** `unzip is not recognized` and `rm is not recognized` errors when running Kaggle download cell in Jupyter Notebook
+**Cause:** The notebook used Linux shell commands (`unzip`, `rm`) which are not available in Windows PowerShell
+**Fix:** Downloaded the dataset manually from Kaggle website and placed `creditcard.csv` directly into the `data/` folder. The Kaggle API cells are kept for documentation but skipped during local execution.
+**Status:** ✅ Resolved
+
+---
+
+#### Bug #3: SyntaxError — Markdown Text in Code Cell
+**Issue:** `SyntaxError: invalid character '–' (U+2014)` in the Class Distribution section
+**Cause:** Markdown description text was accidentally placed inside a Python code cell instead of a separate Markdown cell
+**Fix:** Removed the plain text from the code cell, keeping only the Python code. The description was already present in the Markdown cell above.
+**Status:** ✅ Resolved
+
+---
+
+#### Bug #4: NameError — df Not Defined
+**Issue:** `NameError: name 'df' is not defined` when running the Quick Look at Key Features cell
+**Cause:** Kernel lost variables after skipping cells and running out of order. The `pd.read_csv()` cell had not been executed in the current kernel session.
+**Fix:** Restarted the kernel (Kernel → Restart) and ran all cells from top to bottom in correct order, skipping only the Kaggle API cells.
+**Status:** ✅ Resolved
+
+---
 
 ### Known Issues
 
 | Issue | Description | Impact | Workaround |
 |-------|-------------|--------|------------|
-| — | — | — | — |
+| Windows Kaggle CLI | Kaggle download + unzip commands require Linux shell | Low | Download dataset manually from Kaggle website |
 
 ---
 
