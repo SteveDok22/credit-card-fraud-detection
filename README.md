@@ -613,16 +613,46 @@ cd credit-card-fraud-detection
 
 ### Dataset
 - [Credit Card Fraud Detection Dataset](https://www.kaggle.com/mlg-ulb/creditcardfraud) — Machine Learning Group of ULB (Université Libre de Bruxelles) in collaboration with Worldline
+- Andrea Dal Pozzolo, Olivier Caelen, Reid A. Johnson, and Gianluca Bontempi. *Calibrating Probability with Undersampling for Unbalanced Classification.* In Symposium on Computational Intelligence and Data Mining (CIDM), IEEE, 2015.
 
 ### Documentation & Tutorials
 
 | Resource | Usage |
 |----------|-------|
-
+| [Streamlit Documentation](https://docs.streamlit.io/) | Dashboard development |
+| [XGBoost Documentation](https://xgboost.readthedocs.io/) | Gradient boosting classifier |
+| [SHAP Documentation](https://shap.readthedocs.io/) | Model explainability |
+| [Scikit-learn Documentation](https://scikit-learn.org/) | ML preprocessing and evaluation |
+| [TensorFlow/Keras Documentation](https://www.tensorflow.org/) | Autoencoder architecture |
+| [Plotly Documentation](https://plotly.com/python/) | Interactive visualisations |
+| [Seaborn Documentation](https://seaborn.pydata.org/) | Statistical visualisations |
+| [Imbalanced-learn Documentation](https://imbalanced-learn.org/) | SMOTE oversampling |
+| [SciPy Documentation](https://docs.scipy.org/) | Statistical hypothesis testing (Mann-Whitney U, Chi-squared) |
+| [Pandas Documentation](https://pandas.pydata.org/docs/) | Data manipulation and analysis |
 
 ### Code References
-- Code Institute — CRISP-DM methodology and project structure guidance
-- [Kaggle Notebooks](https://www.kaggle.com/mlg-ulb/creditcardfraud/code) — General approach inspiration (all code written independently)
+
+| Source | Usage | File(s) |
+|--------|-------|---------|
+| [Kaggle API Documentation](https://github.com/Kaggle/kaggle-api) | Dataset download from endpoint | `notebooks/01_DataCollection.ipynb` |
+| [Plotly Express Bar Chart](https://plotly.com/python/bar-charts/) | Class distribution visualisation | `notebooks/02_DataVisualization.ipynb` |
+| [Plotly Express Histogram](https://plotly.com/python/histograms/) | Amount distribution with marginal box plot | `notebooks/02_DataVisualization.ipynb` |
+| [Seaborn Heatmap](https://seaborn.pydata.org/generated/seaborn.heatmap.html) | Correlation heatmap | `notebooks/02_DataVisualization.ipynb` |
+| [Seaborn Violin Plot](https://seaborn.pydata.org/generated/seaborn.violinplot.html) | PCA feature distribution plots | `notebooks/02_DataVisualization.ipynb` |
+| [SciPy Mann-Whitney U](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.mannwhitneyu.html) | Hypothesis testing H1, H3 | `notebooks/02_DataVisualization.ipynb` |
+| [SciPy Chi-squared](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.chi2_contingency.html) | Hypothesis testing H2 | `notebooks/02_DataVisualization.ipynb` |
+| [Stack Overflow — Seaborn palette error](https://stackoverflow.com/questions/76550417/) | Fix for violin plot palette with hue parameter in Seaborn v0.14+ | `notebooks/02_DataVisualization.ipynb` |
+
+### Tools Used
+
+| Tool | Purpose |
+|------|---------|
+| VS Code | Code editor |
+| Jupyter Notebook | Data analysis and modelling |
+| Git | Version control |
+| GitHub | Repository hosting |
+| GitHub Projects | Agile project management |
+| Render | Cloud deployment |
 
 ### Acknowledgements
 - **Code Institute** — For the learning materials and assessment framework
