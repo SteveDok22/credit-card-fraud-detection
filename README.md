@@ -495,7 +495,7 @@ pip install plotly seaborn matplotlib scipy
 
 #### Bug #6: FileNotFoundError — creditcard.csv Not Found in Notebook 02
 **Issue:** `FileNotFoundError: [Errno 2] No such file or directory: 'data/creditcard.csv'` in the Data Visualisation notebook
-**Cause:** The working directory change cell used `endswith("notebooks")` check, but Jupyter was launched from a different location. Additionally, the dataset had not yet been downloaded.
+**Cause:** The working directory change cell used `endswith("notebooks")` check, but Jupyter was launched from a different location
 **Fix:** Verified working directory with `os.getcwd()`, confirmed it pointed to the project root, and ensured `creditcard.csv` was present in the `data/` folder before running the notebook.
 **Status:** ✅ Resolved
 
@@ -504,7 +504,7 @@ pip install plotly seaborn matplotlib scipy
 #### Bug #7: Seaborn Violin Plot Palette Error
 **Issue:** `ValueError: The palette dictionary is missing keys: {'1', '0'}` when rendering violin plots of PCA features
 **Cause:** Seaborn v0.14+ changed how `palette` works with the `x` parameter — it now expects palette keys to match the actual data values (integers 0 and 1), not positional colours
-**Fix:** Updated the violin plot call to use `hue='Class'` parameter and passed palette as a list instead of a dictionary:
+**Fix:** Updated the violin plot call to use `hue='Class'` parameter and passed palette as a list:
 ```python
 sns.violinplot(
     data=df, x='Class', y=feature, ax=ax,
@@ -522,7 +522,6 @@ sns.violinplot(
 |-------|-------------|--------|------------|
 | Windows Kaggle CLI | Kaggle download + unzip commands require Linux shell | Low | Download dataset manually from Kaggle website |
 | Plotly in Jupyter | Plotly charts may not render in some Jupyter configurations | Low | Use `fig.show()` or install `nbformat` |
-
 ---
 
 ## Deployment
