@@ -214,3 +214,10 @@ data/creditcard.csv
 
 # Streamlit config
 .streamlit/
+
+# Large output CSV files (recreated by notebooks)
+outputs/v1/X_train_resampled.csv
+outputs/v1/X_train_engineered.csv
+outputs/v1/X_test_engineered.csv
+outputs/v1/X_train.csv
+outputs/v1/X_test.csv
