@@ -516,6 +516,28 @@ sns.violinplot(
 
 ---
 
+#### Bug #8: ModuleNotFoundError — No module named 'sklearn'
+**Issue:** `ModuleNotFoundError: No module named 'sklearn'` when running train/test split in Notebook 03
+**Cause:** scikit-learn was not installed in the virtual environment despite being in requirements.txt
+**Fix:** Installed the package:
+```bash
+pip install scikit-learn
+```
+**Status:** ✅ Resolved
+
+---
+
+#### Bug #9: ModuleNotFoundError — No module named 'imblearn'
+**Issue:** `ModuleNotFoundError: No module named 'imblearn'` when importing SMOTE in Notebook 04
+**Cause:** imbalanced-learn package was not installed in the virtual environment
+**Fix:** Installed the package:
+```bash
+pip install imbalanced-learn
+```
+**Status:** ✅ Resolved
+
+---
+
 ### Known Issues
 
 | Issue | Description | Impact | Workaround |
