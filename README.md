@@ -632,6 +632,8 @@ cd credit-card-fraud-detection
 
 ## Credits
 
+For detailed code attribution, see [CODE_ATTRIBUTION.md](docs/CODE_ATTRIBUTION.md)
+
 ### Dataset
 - [Credit Card Fraud Detection Dataset](https://www.kaggle.com/mlg-ulb/creditcardfraud) — Machine Learning Group of ULB (Université Libre de Bruxelles) in collaboration with Worldline
 - Andrea Dal Pozzolo, Olivier Caelen, Reid A. Johnson, and Gianluca Bontempi. *Calibrating Probability with Undersampling for Unbalanced Classification.* In Symposium on Computational Intelligence and Data Mining (CIDM), IEEE, 2015.
