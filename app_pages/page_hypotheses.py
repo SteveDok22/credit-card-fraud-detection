@@ -62,3 +62,24 @@ def page_hypotheses():
     col1.metric("Chi-squared", f"{chi2:.2f}")
     col2.metric("P-value", f"{p_h2:.2e}")
     col3.metric("Cramér's V", f"{cramers_v:.4f}")
+
+    if p_h2 < 0.05:
+        st.success(
+            "✅ **Validated** — Fraud rate varies significantly by hour."
+        )
+    else:
+        st.warning("⚠️ **Not Validated** — No significant variation found.")
+
+    st.info(
+        "**Course of Action:** Apply different detection thresholds "
+        "during high-risk hours to increase recall."
+    )
+    st.write("---")
+
+    # H3
+    st.header("H3: PCA Feature Separation")
+    st.write(
+        "**Statement:** At least 3 PCA components show statistically "
+        "significant separation between classes with large effect sizes."
+    )
+
