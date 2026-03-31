@@ -81,7 +81,7 @@ def page_fraud_study():
             "the primary drivers in the ML model."
         )
 
-    # Plot 4: Violin Plots
+   # Plot 4: Violin Plots
     if st.checkbox("Show Top Discriminating Features"):
         feature = st.selectbox(
             "Select Feature",
@@ -90,4 +90,15 @@ def page_fraud_study():
         sample = pd.concat([
             df[df['Class'] == 0].sample(5000, random_state=42),
             df[df['Class'] == 1]
-        ])    
+        ])
+        fig = px.violin(
+            sample, y=feature, color='Class', box=True,
+            color_discrete_map={0: '#636EFA', 1: '#EF553B'},
+            title=f'{feature} Distribution by Class'
+        )
+        st.plotly_chart(fig, use_container_width=True)
+        st.write(
+            f"**Interpretation:** {feature} shows distinct distribution "
+            f"patterns between fraud and legitimate transactions, "
+            f"confirming its value as a discriminating feature."
+        )
