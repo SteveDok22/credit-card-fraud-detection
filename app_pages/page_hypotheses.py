@@ -44,3 +44,21 @@ def page_hypotheses():
         "amount could complement the ML model."
     )
     st.write("---")
+
+    # H2
+    st.header("H2: Temporal Patterns in Fraud")
+    st.write(
+        "**Statement:** Fraud occurrence rate varies significantly "
+        "across different time-of-day periods."
+    )
+
+    df['Hour_bin'] = (df['Time'] / 3600 % 24).astype(int)
+    contingency = pd.crosstab(df['Hour_bin'], df['Class'])
+    chi2, p_h2, dof, _ = chi2_contingency(contingency)
+    n = contingency.sum().sum()
+    cramers_v = np.sqrt(chi2 / (n * (min(contingency.shape) - 1)))
+
+    col1, col2, col3 = st.columns(3)
+    col1.metric("Chi-squared", f"{chi2:.2f}")
+    col2.metric("P-value", f"{p_h2:.2e}")
+    col3.metric("Cramér's V", f"{cramers_v:.4f}")
