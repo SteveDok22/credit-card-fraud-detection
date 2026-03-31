@@ -49,3 +49,33 @@ def load_model(version="v2"):
 - **Reference:** [Streamlit cache_resource](https://docs.streamlit.io/develop/api-reference/caching-and-state/st.cache_resource)
 
 ---
+
+### XGBoost (v2.0.0) — Gradient Boosting Classifier
+- **Source:** [XGBoost Documentation](https://xgboost.readthedocs.io/)
+- **License:** Apache License 2.0
+- **Usage:** Primary supervised fraud classification model
+
+#### Code Adaptations:
+```python
+# XGBClassifier setup from XGBoost documentation
+# Used in notebooks/05_Modelling_XGBoost.ipynb
+from xgboost import XGBClassifier
+
+xgb = XGBClassifier(
+    random_state=42,
+    eval_metric='logloss',
+    use_label_encoder=False
+)
+```
+- **Reference:** [XGBoost Python API](https://xgboost.readthedocs.io/en/stable/python/python_api.html#xgboost.XGBClassifier)
+```python
+# Feature importance extraction from XGBoost documentation
+# Used in notebooks/05_Modelling_XGBoost.ipynb
+feature_importance = pd.DataFrame({
+    'feature': X_train.columns,
+    'importance': best_model.feature_importances_
+}).sort_values('importance', ascending=False)
+```
+- **Reference:** [XGBoost Feature Importance](https://xgboost.readthedocs.io/en/stable/python/python_api.html#xgboost.XGBClassifier.feature_importances_)
+
+---
