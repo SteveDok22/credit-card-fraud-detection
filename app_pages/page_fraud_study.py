@@ -39,3 +39,17 @@ def page_fraud_study():
             "(0.17%). This 577:1 ratio necessitates specialised techniques "
             "like SMOTE oversampling during the modelling phase."
         )
+        
+    # Plot 2: Amount Distribution
+    if st.checkbox("Show Amount Distribution"):
+        fig = px.histogram(
+            df, x='Amount', color='Class',
+            marginal='box', barmode='overlay',
+            color_discrete_map={0: '#636EFA', 1: '#EF553B'},
+            opacity=0.7,
+            title='Transaction Amount Distribution by Class',
+            labels={'Class': 'Transaction Class'}
+        )
+        fig.update_layout(
+            xaxis_title='Amount (€)', yaxis_title='Count'
+        )

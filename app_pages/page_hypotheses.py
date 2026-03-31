@@ -13,3 +13,19 @@ def page_hypotheses():
     st.write("---")
 
     df = load_raw_data()
+
+    # H1
+    st.header("H1: Transaction Amount and Fraud")
+    st.write(
+        "**Statement:** Fraudulent transactions have significantly "
+        "different amount distributions compared to legitimate transactions."
+    )
+
+    fraud_amounts = df[df['Class'] == 1]['Amount']
+    legit_amounts = df[df['Class'] == 0]['Amount']
+    stat_h1, p_h1 = mannwhitneyu(
+        fraud_amounts, legit_amounts, alternative='two-sided'
+    )
+    d_h1 = (
+        (fraud_amounts.mean() - legit_amounts.mean()) / df['Amount'].std()
+    )
