@@ -29,3 +29,18 @@ def page_hypotheses():
     d_h1 = (
         (fraud_amounts.mean() - legit_amounts.mean()) / df['Amount'].std()
     )
+
+    col1, col2, col3 = st.columns(3)
+    col1.metric("P-value", f"{p_h1:.2e}")
+    col2.metric("Cohen's d", f"{d_h1:.4f}")
+    col3.metric("Fraud Median", f"€{fraud_amounts.median():.2f}")
+
+    st.success(
+        f"✅ **Validated** — Statistically significant difference "
+        f"(p < 0.001). Fraud transactions have lower amounts."
+    )
+    st.info(
+        "**Course of Action:** A rule-based pre-filter on transaction "
+        "amount could complement the ML model."
+    )
+    st.write("---")
