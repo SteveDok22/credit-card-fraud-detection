@@ -81,7 +81,7 @@ def page_fraud_study():
             "the primary drivers in the ML model."
         )
 
-   # Plot 4: Violin Plots
+    # Plot 4: Violin Plots
     if st.checkbox("Show Top Discriminating Features"):
         feature = st.selectbox(
             "Select Feature",
@@ -102,3 +102,54 @@ def page_fraud_study():
             f"patterns between fraud and legitimate transactions, "
             f"confirming its value as a discriminating feature."
         )
+
+    # Plot 5: Fraud Rate Over Time
+    if st.checkbox("Show Fraud Rate by Hour"):
+        df['Hour'] = (df['Time'] / 3600) % 24
+        hourly = df.groupby(
+            df['Hour'].astype(int)
+        )['Class'].mean().reset_index()
+        hourly.columns = ['Hour', 'Fraud_Rate']
+
+        fig = px.line(
+            hourly, x='Hour', y='Fraud_Rate', markers=True,
+            title='Fraud Rate by Hour of Day'
+        )
+        fig.add_hline(
+            y=df['Class'].mean(), line_dash='dash',
+            annotation_text='Average fraud rate'
+        )
+        fig.update_layout(xaxis=dict(dtick=1))
+        st.plotly_chart(fig, use_container_width=True)
+        st.write(
+            "**Interpretation:** Fraud rate varies throughout the day, "
+            "with certain hours showing elevated risk. This temporal "
+            "pattern is captured by the engineered Hour feature."
+        )
+
+    # Plot 6: 2D Scatter
+    if st.checkbox("Show Feature Space (V14 vs V12)"):
+        sample = pd.concat([
+            df[df['Class'] == 0].sample(3000, random_state=42),
+            df[df['Class'] == 1]
+        ])
+        fig = px.scatter(
+            sample, x='V14', y='V12', color='Class',
+            color_discrete_map={0: '#636EFA', 1: '#EF553B'},
+            opacity=0.5,
+            title='2D Feature Space: V14 vs V12'
+        )
+        st.plotly_chart(fig, use_container_width=True)
+        st.write(
+            "**Interpretation:** Fraud transactions form visible clusters "
+            "in specific regions of the V14-V12 space, suggesting that "
+            "a non-linear classifier can learn effective decision boundaries."
+        )
+
+    st.write("---")
+    st.success(
+        "**BR1 Conclusion:** Fraudulent transactions exhibit distinct "
+        "patterns in amount distribution, temporal occurrence, and PCA "
+        "component values. Key discriminating features include V14, V12, "
+        "V10, and transaction Amount."
+    )
