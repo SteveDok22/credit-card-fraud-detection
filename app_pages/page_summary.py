@@ -40,3 +40,30 @@ def page_summary():
         "that can identify novel fraud patterns without relying on "
         "historical labels, as a complementary approach."
     )
+
+    st.write("---")
+    with st.expander("ML Terminology Glossary"):
+        st.markdown(
+            "**Binary Classification** — Predicting one of two outcomes "
+            "(Fraud / Legitimate)\n\n"
+            "**SMOTE** — Synthetic Minority Over-sampling Technique: "
+            "generates synthetic samples for the minority class to "
+            "address class imbalance\n\n"
+            "**XGBoost** — Extreme Gradient Boosting: ensemble learning "
+            "algorithm that builds decision trees sequentially, each "
+            "correcting errors of the previous one\n\n"
+            "**Autoencoder** — Neural network trained to reconstruct "
+            "its input; anomalies produce higher reconstruction errors\n\n"
+            "**Precision** — Of all transactions flagged as fraud, "
+            "what percentage were actually fraud\n\n"
+            "**Recall** — Of all actual fraud cases, what percentage "
+            "did the model catch\n\n"
+            "**F1-Score** — Harmonic mean of Precision and Recall; "
+            "balances both metrics into a single number\n\n"
+            "**SHAP** — SHapley Additive exPlanations: explains "
+            "individual predictions by showing each feature's "
+            "contribution to the outcome\n\n"
+            "**AUC-ROC** — Area Under the Receiver Operating "
+            "Characteristic curve; measures overall model discrimination "
+            "ability (1.0 = perfect, 0.5 = random)"
+        )
