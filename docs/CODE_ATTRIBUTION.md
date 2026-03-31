@@ -166,3 +166,84 @@ X_adasyn, y_adasyn = adasyn.fit_resample(X_train, y_train)
 - **Reference:** [ADASYN](https://imbalanced-learn.org/stable/references/generated/imblearn.over_sampling.ADASYN.html)
 
 ---
+
+### SHAP (v0.42.0) — Model Explainability
+- **Source:** [SHAP Documentation](https://shap.readthedocs.io/)
+- **License:** MIT License
+- **Usage:** Explaining individual fraud predictions
+
+#### Code Adaptations:
+```python
+# TreeExplainer for XGBoost from SHAP documentation
+# Used in notebooks/05_Modelling_XGBoost.ipynb
+import shap
+
+explainer = shap.TreeExplainer(best_model)
+shap_values = explainer.shap_values(X_shap_sample)
+```
+- **Reference:** [SHAP TreeExplainer](https://shap.readthedocs.io/en/latest/generated/shap.TreeExplainer.html)
+```python
+# SHAP summary plot from SHAP documentation
+# Used in notebooks/05_Modelling_XGBoost.ipynb
+shap.summary_plot(shap_values, X_shap_sample, show=False)
+```
+- **Reference:** [SHAP Summary Plot](https://shap.readthedocs.io/en/latest/generated/shap.plots.beeswarm.html)
+```python
+# SHAP waterfall plot for single prediction from SHAP documentation
+# Used in notebooks/05_Modelling_XGBoost.ipynb and app_pages/page_detector.py
+shap.waterfall_plot(
+    shap.Explanation(
+        values=single_shap[0],
+        base_values=explainer.expected_value,
+        data=single_transaction.values[0],
+        feature_names=X_test.columns.tolist()
+    )
+)
+```
+- **Reference:** [SHAP Waterfall Plot](https://shap.readthedocs.io/en/latest/generated/shap.plots.waterfall.html)
+
+---
+
+### TensorFlow/Keras (v2.13.0) — Autoencoder Neural Network
+- **Source:** [TensorFlow Documentation](https://www.tensorflow.org/)
+- **License:** Apache License 2.0
+- **Usage:** Unsupervised anomaly detection autoencoder
+
+#### Code Adaptations:
+```python
+# Functional API autoencoder from Keras documentation
+# Used in notebooks/06_Modelling_Autoencoder.ipynb
+from tensorflow.keras.models import Model
+from tensorflow.keras.layers import Input, Dense, Dropout, BatchNormalization
+
+input_layer = Input(shape=(input_dim,))
+encoded = Dense(32, activation='relu')(input_layer)
+encoded = BatchNormalization()(encoded)
+encoded = Dropout(0.2)(encoded)
+encoded = Dense(16, activation='relu')(encoded)
+encoded = BatchNormalization()(encoded)
+encoded = Dense(8, activation='relu')(encoded)
+
+decoded = Dense(16, activation='relu')(encoded)
+decoded = BatchNormalization()(decoded)
+decoded = Dropout(0.2)(decoded)
+decoded = Dense(32, activation='relu')(decoded)
+decoded = BatchNormalization()(decoded)
+decoded = Dense(input_dim, activation='linear')(decoded)
+
+autoencoder = Model(input_layer, decoded)
+autoencoder.compile(optimizer='adam', loss='mse')
+```
+- **Reference:** [Keras Functional API](https://www.tensorflow.org/guide/keras/functional_api)
+```python
+# EarlyStopping callback from Keras documentation
+# Used in notebooks/06_Modelling_Autoencoder.ipynb
+from tensorflow.keras.callbacks import EarlyStopping
+
+early_stop = EarlyStopping(
+    monitor='val_loss', patience=5, restore_best_weights=True
+)
+```
+- **Reference:** [Keras EarlyStopping](https://www.tensorflow.org/api_docs/python/tf/keras/callbacks/EarlyStopping)
+
+---
