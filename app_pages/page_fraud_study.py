@@ -39,7 +39,7 @@ def page_fraud_study():
             "(0.17%). This 577:1 ratio necessitates specialised techniques "
             "like SMOTE oversampling during the modelling phase."
         )
-        
+
     # Plot 2: Amount Distribution
     if st.checkbox("Show Amount Distribution"):
         fig = px.histogram(
@@ -53,3 +53,41 @@ def page_fraud_study():
         fig.update_layout(
             xaxis_title='Amount (€)', yaxis_title='Count'
         )
+        st.plotly_chart(fig, use_container_width=True)
+        st.write(
+            "**Interpretation:** Fraudulent transactions cluster at lower "
+            "amounts compared to legitimate ones. This suggests fraudsters "
+            "may deliberately keep amounts low to avoid triggering existing "
+            "rule-based detection systems."
+        )
+
+    # Plot 3: Correlation Heatmap
+    if st.checkbox("Show Feature Correlation Heatmap"):
+        correlations = df.corr()['Class'].drop('Class').abs()
+        top_features = correlations.sort_values(
+            ascending=False
+        ).head(12).index.tolist() + ['Class']
+
+        fig, ax = plt.subplots(figsize=(10, 8))
+        sns.heatmap(
+            df[top_features].corr(), annot=True,
+            cmap='RdBu_r', center=0, fmt='.2f', ax=ax
+        )
+        ax.set_title('Correlation Heatmap — Top 12 Features')
+        st.pyplot(fig)
+        st.write(
+            "**Interpretation:** V14, V12, and V10 show the strongest "
+            "correlations with the fraud class. These features will be "
+            "the primary drivers in the ML model."
+        )
+
+    # Plot 4: Violin Plots
+    if st.checkbox("Show Top Discriminating Features"):
+        feature = st.selectbox(
+            "Select Feature",
+            ['V14', 'V12', 'V10', 'V17', 'V11', 'V4']
+        )
+        sample = pd.concat([
+            df[df['Class'] == 0].sample(5000, random_state=42),
+            df[df['Class'] == 1]
+        ])    
