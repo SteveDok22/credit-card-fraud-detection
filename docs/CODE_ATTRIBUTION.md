@@ -79,3 +79,90 @@ feature_importance = pd.DataFrame({
 - **Reference:** [XGBoost Feature Importance](https://xgboost.readthedocs.io/en/stable/python/python_api.html#xgboost.XGBClassifier.feature_importances_)
 
 ---
+
+### Scikit-learn (v1.3.0) — ML Preprocessing & Evaluation
+- **Source:** [Scikit-learn Documentation](https://scikit-learn.org/)
+- **License:** BSD 3-Clause License
+- **Usage:** Train/test split, scaling, evaluation metrics, hyperparameter tuning
+
+#### Code Adaptations:
+```python
+# Stratified train/test split from Scikit-learn documentation
+# Used in notebooks/03_DataCleaning.ipynb
+from sklearn.model_selection import train_test_split
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42, stratify=y
+)
+```
+- **Reference:** [train_test_split](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html)
+```python
+# RobustScaler for outlier-resistant scaling from Scikit-learn docs
+# Used in notebooks/04_FeatureEngineering.ipynb
+from sklearn.preprocessing import RobustScaler
+
+scaler = RobustScaler()
+X_train[cols_to_scale] = scaler.fit_transform(X_train[cols_to_scale])
+X_test[cols_to_scale] = scaler.transform(X_test[cols_to_scale])
+```
+- **Reference:** [RobustScaler](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.RobustScaler.html)
+```python
+# RandomizedSearchCV for hyperparameter tuning from Scikit-learn docs
+# Used in notebooks/05_Modelling_XGBoost.ipynb
+from sklearn.model_selection import RandomizedSearchCV
+
+search = RandomizedSearchCV(
+    xgb, param_distributions,
+    n_iter=50, scoring='f1',
+    cv=StratifiedKFold(n_splits=5, shuffle=True, random_state=42),
+    random_state=42, verbose=1, n_jobs=-1
+)
+```
+- **Reference:** [RandomizedSearchCV](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.RandomizedSearchCV.html)
+```python
+# Classification report and confusion matrix from Scikit-learn docs
+# Used in notebooks/05_Modelling_XGBoost.ipynb and dashboard pages
+from sklearn.metrics import classification_report, confusion_matrix
+
+print(classification_report(y_test, y_pred,
+                            target_names=['Legitimate', 'Fraud']))
+cm = confusion_matrix(y_test, y_pred)
+```
+- **Reference:** [classification_report](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.classification_report.html)
+```python
+# Mutual Information for feature selection from Scikit-learn docs
+# Used in notebooks/04_FeatureEngineering.ipynb
+from sklearn.feature_selection import mutual_info_classif
+
+mi_scores = mutual_info_classif(X_train, y_train, random_state=42)
+```
+- **Reference:** [mutual_info_classif](https://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.mutual_info_classif.html)
+
+---
+
+### Imbalanced-learn (v0.11.0) — SMOTE Oversampling
+- **Source:** [Imbalanced-learn Documentation](https://imbalanced-learn.org/)
+- **License:** MIT License
+- **Usage:** Handling class imbalance via synthetic oversampling
+
+#### Code Adaptations:
+```python
+# SMOTE oversampling from Imbalanced-learn documentation
+# Used in notebooks/04_FeatureEngineering.ipynb
+from imblearn.over_sampling import SMOTE
+
+smote = SMOTE(random_state=42)
+X_train_resampled, y_train_resampled = smote.fit_resample(X_train, y_train)
+```
+- **Reference:** [SMOTE](https://imbalanced-learn.org/stable/references/generated/imblearn.over_sampling.SMOTE.html)
+```python
+# ADASYN comparison from Imbalanced-learn documentation
+# Used in notebooks/04_FeatureEngineering.ipynb
+from imblearn.over_sampling import ADASYN
+
+adasyn = ADASYN(random_state=42)
+X_adasyn, y_adasyn = adasyn.fit_resample(X_train, y_train)
+```
+- **Reference:** [ADASYN](https://imbalanced-learn.org/stable/references/generated/imblearn.over_sampling.ADASYN.html)
+
+---
