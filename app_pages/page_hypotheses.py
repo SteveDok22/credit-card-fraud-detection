@@ -83,3 +83,35 @@ def page_hypotheses():
         "significant separation between classes with large effect sizes."
     )
 
+    results = []
+    for col_name in [f'V{i}' for i in range(1, 29)]:
+        fraud_vals = df[df['Class'] == 1][col_name]
+        legit_vals = df[df['Class'] == 0][col_name]
+        _, p = mannwhitneyu(fraud_vals, legit_vals)
+        d = (fraud_vals.mean() - legit_vals.mean()) / df[col_name].std()
+        results.append({
+            'Feature': col_name, 'P-value': p,
+            "Cohen's d": d, '|d|': abs(d)
+        })
+
+    results_df = pd.DataFrame(results).sort_values('|d|', ascending=False)
+    significant = results_df[
+        (results_df['P-value'] < 0.001) & (results_df['|d|'] > 0.5)
+    ]
+
+    col1, col2 = st.columns(2)
+    col1.metric("Features with Large Effect", f"{len(significant)}")
+    col2.metric("Top Feature", results_df.iloc[0]['Feature'])
+
+    st.dataframe(
+        results_df.head(10).style.format({
+            'P-value': '{:.2e}', "Cohen's d": '{:+.3f}', '|d|': '{:.3f}'
+        }),
+        use_container_width=True
+    )
+
+    st.success(
+        f"✅ **Validated** — {len(significant)} features show large "
+        f"effect size separation (|d| > 0.5)."
+    )
+    st.write("---")
