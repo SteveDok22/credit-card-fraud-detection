@@ -59,3 +59,36 @@ def _manual_entry(model, explainer, feature_names, threshold):
     with col3:
         v10 = st.slider("V10", -20.0, 20.0, 0.0, 0.1)
         v17 = st.slider("V17", -20.0, 20.0, 0.0, 0.1)
+    
+    if st.button("🔍 Analyse Transaction", type="primary"):
+        # Build input with all features
+        input_data = np.zeros(len(feature_names))
+        input_df = pd.DataFrame([input_data], columns=feature_names)
+
+        # Set the user-specified values
+        input_df['Time'] = time_val
+        input_df['Amount'] = amount
+        input_df['V14'] = v14
+        input_df['V12'] = v12
+        input_df['V10'] = v10
+        input_df['V17'] = v17
+
+        # Engineer features to match training
+        input_df['Hour'] = (time_val / 3600) % 24
+        input_df['Is_Night'] = int(
+            input_df['Hour'].values[0] >= 22
+            or input_df['Hour'].values[0] <= 5
+        )
+        input_df['Amount_log'] = np.log1p(amount)
+        input_df['V14_x_V12'] = v14 * v12
+        input_df['V14_x_V10'] = v14 * v10
+        v_cols = [f'V{i}' for i in range(1, 29)]
+        input_df['V_mean'] = input_df[v_cols].mean(axis=1)
+        input_df['V_std'] = input_df[v_cols].std(axis=1)
+        input_df['V_skew'] = input_df[v_cols].skew(axis=1)
+
+        proba = model.predict_proba(input_df)[0][1]
+
+        # Display result
+        st.write("---")
+        col_r, col_g = st.columns([1, 1])
