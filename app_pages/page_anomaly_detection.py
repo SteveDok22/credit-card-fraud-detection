@@ -32,3 +32,14 @@ def page_anomaly_detection():
     )
 
     st.write("---")
+
+    # Load data
+    y_test = pd.read_csv("outputs/v1/y_test.csv").squeeze()
+    reconstruction_errors = joblib.load(
+        "outputs/v3/reconstruction_errors.pkl"
+    )
+    with open("outputs/v3/ae_threshold.json") as f:
+        ae_data = json.load(f)
+
+    legit_errors = reconstruction_errors[y_test == 0]
+    fraud_errors = reconstruction_errors[y_test == 1]

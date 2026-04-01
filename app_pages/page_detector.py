@@ -92,3 +92,35 @@ def _manual_entry(model, explainer, feature_names, threshold):
         # Display result
         st.write("---")
         col_r, col_g = st.columns([1, 1])
+
+        with col_r:
+            if proba >= threshold:
+                st.error(f"⚠️ **FRAUD DETECTED**")
+            else:
+                st.success(f"✅ **LEGITIMATE TRANSACTION**")
+            st.metric("Fraud Probability", f"{proba:.1%}")
+            st.metric("Threshold", f"{threshold:.2f}")
+
+        with col_g:
+            fig = go.Figure(go.Indicator(
+                mode="gauge+number",
+                value=proba * 100,
+                title={'text': "Fraud Risk Score"},
+                gauge={
+                    'axis': {'range': [0, 100]},
+                    'bar': {'color': (
+                        "#EF553B" if proba >= threshold else "#00CC96"
+                    )},
+                    'steps': [
+                        {'range': [0, 30], 'color': '#d4edda'},
+                        {'range': [30, 70], 'color': '#fff3cd'},
+                        {'range': [70, 100], 'color': '#f8d7da'}
+                    ],
+                    'threshold': {
+                        'line': {'color': "red", 'width': 4},
+                        'value': threshold * 100
+                    }
+                }
+            ))
+            fig.update_layout(height=300)
+            st.plotly_chart(fig, use_container_width=True)
