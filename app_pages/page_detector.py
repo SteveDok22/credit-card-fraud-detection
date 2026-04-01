@@ -155,3 +155,40 @@ def _manual_entry(model, explainer, feature_names, threshold):
             "Red bars push the prediction toward FRAUD, "
             "blue bars push toward LEGITIMATE."
         )
+
+def _csv_upload(model, feature_names, threshold):
+    """Handle CSV batch upload."""
+
+    st.subheader("Upload Transactions CSV")
+    uploaded = st.file_uploader("Choose a CSV file", type=['csv'])
+
+    if uploaded:
+        batch_df = pd.read_csv(uploaded)
+        st.write(f"Loaded {len(batch_df)} transactions")
+
+        # Check columns match
+        missing = set(feature_names) - set(batch_df.columns)
+        if missing:
+            st.error(
+                f"Missing columns: {missing}. "
+                f"CSV must contain all {len(feature_names)} features."
+            )
+            return
+
+        probas = model.predict_proba(batch_df[feature_names])[:, 1]
+        batch_df['Fraud_Probability'] = probas
+        batch_df['Risk'] = pd.cut(
+            probas, bins=[0, 0.3, 0.7, 1.0],
+            labels=['🟢 Low', '🟡 Medium', '🔴 High']
+        )
+
+        col1, col2, col3 = st.columns(3)
+        col1.metric("Total Transactions", len(batch_df))
+        col2.metric("Flagged as Fraud", f"{(probas >= threshold).sum()}")
+        col3.metric("Flag Rate", f"{(probas >= threshold).mean():.1%}")
+
+        st.dataframe(
+            batch_df[['Amount', 'Fraud_Probability', 'Risk']]
+            .sort_values('Fraud_Probability', ascending=False),
+            use_container_width=True
+        )
