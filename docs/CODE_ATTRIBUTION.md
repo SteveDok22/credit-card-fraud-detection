@@ -247,3 +247,31 @@ early_stop = EarlyStopping(
 - **Reference:** [Keras EarlyStopping](https://www.tensorflow.org/api_docs/python/tf/keras/callbacks/EarlyStopping)
 
 ---
+
+## SciPy (v1.11.0) — Statistical Testing
+- **Source:** [SciPy Documentation](https://docs.scipy.org/)
+- **License:** BSD 3-Clause License
+- **Usage:** Hypothesis validation with statistical tests
+
+#### Code Adaptations:
+```python
+# Mann-Whitney U test from SciPy documentation
+# Used in notebooks/02_DataVisualization.ipynb for H1 and H3
+from scipy.stats import mannwhitneyu
+
+stat, p_value = mannwhitneyu(
+    fraud_amounts, legit_amounts, alternative='two-sided'
+)
+```
+- **Reference:** [scipy.stats.mannwhitneyu](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.mannwhitneyu.html)
+```python
+# Chi-squared test from SciPy documentation
+# Used in notebooks/02_DataVisualization.ipynb for H2
+from scipy.stats import chi2_contingency
+
+contingency = pd.crosstab(df['Hour_bin'], df['Class'])
+chi2, p_val, dof, expected = chi2_contingency(contingency)
+```
+- **Reference:** [scipy.stats.chi2_contingency](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.chi2_contingency.html)
+
+---
