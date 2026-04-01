@@ -39,3 +39,23 @@ def page_detector():
         _csv_upload(model, feature_names, threshold)
     elif input_mode == "Live Simulation":
         _live_simulation(model, feature_names, threshold)
+
+def _manual_entry(model, explainer, feature_names, threshold):
+    """Handle manual transaction entry."""
+
+    st.subheader("Enter Transaction Details")
+    st.caption(
+        "Adjust the key features below. Unspecified V-features "
+        "default to 0 (mean of PCA distribution)."
+    )
+
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        amount = st.number_input("Amount (€)", 0.0, 50000.0, 100.0)
+        time_val = st.number_input("Time (seconds)", 0, 172800, 50000)
+    with col2:
+        v14 = st.slider("V14", -20.0, 20.0, 0.0, 0.1)
+        v12 = st.slider("V12", -20.0, 20.0, 0.0, 0.1)
+    with col3:
+        v10 = st.slider("V10", -20.0, 20.0, 0.0, 0.1)
+        v17 = st.slider("V17", -20.0, 20.0, 0.0, 0.1)
