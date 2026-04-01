@@ -40,6 +40,7 @@ def page_detector():
     elif input_mode == "Live Simulation":
         _live_simulation(model, feature_names, threshold)
 
+
 def _manual_entry(model, explainer, feature_names, threshold):
     """Handle manual transaction entry."""
 
@@ -59,7 +60,7 @@ def _manual_entry(model, explainer, feature_names, threshold):
     with col3:
         v10 = st.slider("V10", -20.0, 20.0, 0.0, 0.1)
         v17 = st.slider("V17", -20.0, 20.0, 0.0, 0.1)
-    
+
     if st.button("🔍 Analyse Transaction", type="primary"):
         # Build input with all features
         input_data = np.zeros(len(feature_names))
@@ -124,3 +125,33 @@ def _manual_entry(model, explainer, feature_names, threshold):
             ))
             fig.update_layout(height=300)
             st.plotly_chart(fig, use_container_width=True)
+
+        # SHAP explanation
+        st.subheader("Why This Prediction?")
+        shap_values = explainer.shap_values(input_df)
+
+        shap_df = pd.DataFrame({
+            'Feature': feature_names,
+            'SHAP Value': shap_values[0],
+            'Abs SHAP': np.abs(shap_values[0])
+        }).sort_values('Abs SHAP', ascending=False).head(10)
+
+        fig = go.Figure(go.Bar(
+            x=shap_df['SHAP Value'],
+            y=shap_df['Feature'],
+            orientation='h',
+            marker_color=[
+                '#EF553B' if v > 0 else '#636EFA'
+                for v in shap_df['SHAP Value']
+            ]
+        ))
+        fig.update_layout(
+            title="Top 10 Feature Contributions (SHAP)",
+            xaxis_title="SHAP Value (→ fraud | ← legitimate)",
+            height=400
+        )
+        st.plotly_chart(fig, use_container_width=True)
+        st.caption(
+            "Red bars push the prediction toward FRAUD, "
+            "blue bars push toward LEGITIMATE."
+        )

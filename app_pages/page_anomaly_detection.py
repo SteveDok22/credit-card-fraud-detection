@@ -43,3 +43,19 @@ def page_anomaly_detection():
 
     legit_errors = reconstruction_errors[y_test == 0]
     fraud_errors = reconstruction_errors[y_test == 1]
+
+    # Error distribution plot
+    st.header("Reconstruction Error Analysis")
+
+    col1, col2 = st.columns(2)
+    col1.metric(
+        "Legit Mean Error", f"{legit_errors.mean():.6f}"
+    )
+    col2.metric(
+        "Fraud Mean Error", f"{fraud_errors.mean():.6f}"
+    )
+
+    error_df = pd.DataFrame({
+        'Error': reconstruction_errors,
+        'Class': ['Fraud' if c == 1 else 'Legitimate' for c in y_test]
+    })
