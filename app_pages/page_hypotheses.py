@@ -115,3 +115,11 @@ def page_hypotheses():
         f"effect size separation (|d| > 0.5)."
     )
     st.write("---")
+
+    # H4
+    st.header("H4: Model Performance Threshold")
+    st.write(
+        "**Statement:** An optimised classifier can achieve F1 >= 0.80 "
+        "on the fraud class while maintaining Precision >= 0.75."
+    )
+    st.write("See **ML Pipeline Performance** page for full results.")
