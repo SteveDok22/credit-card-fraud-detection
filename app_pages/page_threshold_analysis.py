@@ -54,3 +54,21 @@ def page_threshold_analysis():
 
     # Confusion Matrix + Cost Calculator
     col_cm, col_costs = st.columns(2)
+
+    with col_cm:
+        st.subheader("Confusion Matrix")
+        fig = go.Figure(data=go.Heatmap(
+            z=[[tn, fp], [fn, tp]],
+            x=['Pred Legit', 'Pred Fraud'],
+            y=['Actual Legit', 'Actual Fraud'],
+            colorscale='RdBu',
+            text=[
+                [f"TN: {tn:,}", f"FP: {fp:,}"],
+                [f"FN: {fn:,}", f"TP: {tp:,}"]
+            ],
+            texttemplate="%{text}",
+            textfont={"size": 16},
+            showscale=False
+        ))
+        fig.update_layout(height=350)
+        st.plotly_chart(fig, use_container_width=True)
