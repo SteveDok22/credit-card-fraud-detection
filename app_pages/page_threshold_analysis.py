@@ -24,3 +24,33 @@ def page_threshold_analysis():
 
     with open("outputs/v2/optimal_threshold.json") as f:
         default_threshold = json.load(f)['optimal_threshold']
+
+    # Interactive threshold slider
+    threshold = st.slider(
+        "Decision Threshold",
+        min_value=0.05, max_value=0.95,
+        value=float(default_threshold), step=0.01,
+        help="Lower = catch more fraud (higher recall) but more false alarms"
+    )
+
+    y_pred = (y_proba >= threshold).astype(int)
+    tn, fp, fn, tp = confusion_matrix(y_test, y_pred).ravel()
+
+    # Metrics
+    precision = tp / (tp + fp) if (tp + fp) > 0 else 0
+    recall = tp / (tp + fn) if (tp + fn) > 0 else 0
+    f1 = (
+        2 * precision * recall / (precision + recall)
+        if (precision + recall) > 0 else 0
+    )
+
+    col1, col2, col3, col4 = st.columns(4)
+    col1.metric("Precision", f"{precision:.3f}")
+    col2.metric("Recall", f"{recall:.3f}")
+    col3.metric("F1-Score", f"{f1:.3f}")
+    col4.metric("Threshold", f"{threshold:.2f}")
+
+    st.write("---")
+
+    # Confusion Matrix + Cost Calculator
+    col_cm, col_costs = st.columns(2)
