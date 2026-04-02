@@ -248,7 +248,7 @@ early_stop = EarlyStopping(
 
 ---
 
-## SciPy (v1.11.0) — Statistical Testing
+### SciPy (v1.11.0) — Statistical Testing
 - **Source:** [SciPy Documentation](https://docs.scipy.org/)
 - **License:** BSD 3-Clause License
 - **Usage:** Hypothesis validation with statistical tests
@@ -325,5 +325,119 @@ fig = go.Figure(data=go.Heatmap(
 ))
 ```
 - **Reference:** [Plotly Heatmaps](https://plotly.com/python/heatmaps/)
+
+---
+
+### Seaborn (v0.12.0) — Statistical Visualisations
+- **Source:** [Seaborn Documentation](https://seaborn.pydata.org/)
+- **License:** BSD 3-Clause License
+- **Usage:** Heatmaps, violin plots in notebooks
+
+#### Code Adaptations:
+```python
+# Heatmap from Seaborn documentation
+# Used in notebooks/02_DataVisualization.ipynb
+import seaborn as sns
+
+sns.heatmap(
+    df[top_features].corr(),
+    annot=True, cmap='RdBu_r', center=0, fmt='.2f'
+)
+```
+- **Reference:** [seaborn.heatmap](https://seaborn.pydata.org/generated/seaborn.heatmap.html)
+```python
+# Violin plot with hue parameter from Seaborn documentation
+# Adapted for Seaborn v0.14+ palette handling
+# Used in notebooks/02_DataVisualization.ipynb
+sns.violinplot(
+    data=df, x='Class', y=feature,
+    hue='Class', palette=['#636EFA', '#EF553B'],
+    inner='box', legend=False
+)
+```
+- **Reference:** [seaborn.violinplot](https://seaborn.pydata.org/generated/seaborn.violinplot.html)
+- **Fix Reference:** [Stack Overflow — Seaborn palette error](https://stackoverflow.com/questions/76550417/)
+
+---
+
+### Kaggle API (v1.6.0) — Dataset Collection
+- **Source:** [Kaggle API Documentation](https://github.com/Kaggle/kaggle-api)
+- **License:** Apache License 2.0
+- **Usage:** Downloading dataset from Kaggle endpoint
+
+#### Code Adaptations:
+```python
+# Kaggle dataset download from API documentation
+# Used in notebooks/01_DataCollection.ipynb
+os.environ['KAGGLE_CONFIG_DIR'] = os.getcwd()
+! kaggle datasets download -d mlg-ulb/creditcardfraud -p data/
+```
+- **Reference:** [Kaggle API Datasets](https://github.com/Kaggle/kaggle-api#datasets)
+
+---
+
+## Python Standard Library
+
+### NumPy — Numerical Computing
+```python
+# Log transform from NumPy documentation
+# Used in notebooks/04_FeatureEngineering.ipynb
+X_train['Amount_log'] = np.log1p(X_train['Amount'])
+```
+- **Reference:** [numpy.log1p](https://numpy.org/doc/stable/reference/generated/numpy.log1p.html)
+
+### Joblib — Model Serialisation
+```python
+# Model save/load pattern from Joblib documentation
+# Used throughout notebooks and src/data_management.py
+import joblib
+joblib.dump(best_model, "outputs/v2/fraud_model_optimized.pkl")
+model = joblib.load("outputs/v2/fraud_model_optimized.pkl")
+```
+- **Reference:** [Joblib Persistence](https://joblib.readthedocs.io/en/stable/persistence.html)
+
+---
+
+## Design Patterns
+
+### CRISP-DM Methodology
+- **Source:** [IBM CRISP-DM Guide](https://www.ibm.com/docs/en/spss-modeler/saas?topic=dm-crisp-help-overview)
+- **Usage:** Project structure follows the 6-phase CRISP-DM lifecycle
+- **Adaptation:** 7 Jupyter notebooks mapped to CRISP-DM phases (Business Understanding → Data Understanding → Data Preparation → Modelling → Evaluation → Deployment)
+
+### Versioned Output Pattern
+- **Source:** Code Institute learning materials
+- **Usage:** Model artifacts saved in versioned folders (`outputs/v1/`, `outputs/v2/`, `outputs/v3/`)
+- **Adaptation:** Each version represents a project milestone — v1 (baseline), v2 (optimised XGBoost), v3 (autoencoder)
+
+---
+
+## Community Resources
+
+### Stack Overflow Solutions
+
+| Issue | Solution | File |
+|-------|----------|------|
+| Seaborn v0.14+ palette error | Use `hue` parameter instead of `palette` dict | `notebooks/02_DataVisualization.ipynb` |
+
+---
+
+## License Compliance Summary
+
+| Library | License | Commercial Use | Modification |
+|---------|---------|----------------|--------------|
+| Streamlit | Apache 2.0 | ✅ | ✅ |
+| XGBoost | Apache 2.0 | ✅ | ✅ |
+| Scikit-learn | BSD 3-Clause | ✅ | ✅ |
+| Imbalanced-learn | MIT | ✅ | ✅ |
+| SHAP | MIT | ✅ | ✅ |
+| TensorFlow | Apache 2.0 | ✅ | ✅ |
+| Plotly | MIT | ✅ | ✅ |
+| Seaborn | BSD 3-Clause | ✅ | ✅ |
+| SciPy | BSD 3-Clause | ✅ | ✅ |
+| Pandas | BSD 3-Clause | ✅ | ✅ |
+| NumPy | BSD 3-Clause | ✅ | ✅ |
+
+All libraries used are open-source and permit commercial use, modification, and distribution.
 
 ---
