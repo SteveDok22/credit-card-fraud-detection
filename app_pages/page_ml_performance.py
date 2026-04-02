@@ -10,3 +10,27 @@ from sklearn.metrics import (
     classification_report, confusion_matrix,
     roc_curve, auc, precision_recall_curve, average_precision_score
 )
+
+
+def page_ml_performance():
+    """Display the ML pipeline performance page."""
+
+    st.title("📊 ML Pipeline Performance")
+
+    # Load data
+    X_train = pd.read_csv("outputs/v1/X_train_resampled.csv")
+    y_train = pd.read_csv("outputs/v1/y_train_resampled.csv").squeeze()
+    y_test = pd.read_csv("outputs/v1/y_test.csv").squeeze()
+    model = joblib.load("outputs/v2/fraud_model_optimized.pkl")
+    y_test_proba = joblib.load("outputs/v2/test_probabilities.pkl")
+
+    with open("outputs/v2/optimal_threshold.json") as f:
+        threshold = json.load(f)['optimal_threshold']
+    with open("outputs/v2/tuning_results.json") as f:
+        tuning = json.load(f)
+
+    y_test_pred = (y_test_proba >= threshold).astype(int)
+    test_report = classification_report(
+        y_test, y_test_pred, output_dict=True,
+        target_names=['Legitimate', 'Fraud']
+    )
