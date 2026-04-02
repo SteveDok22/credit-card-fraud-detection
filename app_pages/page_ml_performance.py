@@ -145,3 +145,24 @@ def page_ml_performance():
                 height=400
             )
             st.plotly_chart(fig, use_container_width=True)
+
+    with tab3:
+        st.header("Feature Importance")
+
+        # SHAP plot
+        st.subheader("SHAP Global Feature Importance")
+        st.image("outputs/v2/shap_summary.png")
+
+        # XGBoost native importance
+        st.subheader("XGBoost Feature Importance")
+        fi = pd.read_csv("outputs/v2/feature_importance.csv")
+        fig = px.bar(
+            fi.head(15), x='importance', y='feature',
+            orientation='h',
+            title='Top 15 Features',
+            color='importance', color_continuous_scale='Blues'
+        )
+        fig.update_layout(yaxis={'categoryorder': 'total ascending'})
+        st.plotly_chart(fig, use_container_width=True)
+
+
