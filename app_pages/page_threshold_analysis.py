@@ -98,3 +98,42 @@ def page_threshold_analysis():
         )
 
     st.write("---")
+
+    # Threshold optimisation curve
+    st.subheader("Optimal Threshold Analysis")
+
+    thresholds = np.arange(0.05, 0.95, 0.01)
+    costs = []
+    f1s = []
+    for t in thresholds:
+        y_t = (y_proba >= t).astype(int)
+        tn_t, fp_t, fn_t, tp_t = confusion_matrix(y_test, y_t).ravel()
+        costs.append(fn_t * cost_fn + fp_t * cost_fp)
+        f1s.append(f1_score(y_test, y_t, zero_division=0))
+
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(
+        x=thresholds, y=costs, name='Business Cost ($)',
+        line=dict(color='#636EFA')
+    ))
+    fig.add_trace(go.Scatter(
+        x=thresholds, y=np.array(f1s) * max(costs), name='F1 (scaled)',
+        line=dict(color='#EF553B', dash='dot')
+    ))
+    fig.add_vline(
+        x=threshold, line_dash='dash', line_color='green',
+        annotation_text=f'Current: {threshold:.2f}'
+    )
+    fig.update_layout(
+        title='Threshold vs Business Cost',
+        xaxis_title='Decision Threshold',
+        yaxis_title='Cost ($)',
+        height=400
+    )
+    st.plotly_chart(fig, use_container_width=True)
+
+    optimal_cost_idx = np.argmin(costs)
+    st.info(
+        f"💡 **Cost-optimal threshold:** {thresholds[optimal_cost_idx]:.2f} "
+        f"(Total cost: ${costs[optimal_cost_idx]:,.0f})"
+    )
