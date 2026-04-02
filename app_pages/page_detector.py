@@ -156,6 +156,7 @@ def _manual_entry(model, explainer, feature_names, threshold):
             "blue bars push toward LEGITIMATE."
         )
 
+
 def _csv_upload(model, feature_names, threshold):
     """Handle CSV batch upload."""
 
@@ -192,3 +193,39 @@ def _csv_upload(model, feature_names, threshold):
             .sort_values('Fraud_Probability', ascending=False),
             use_container_width=True
         )
+
+
+def _live_simulation(model, feature_names, threshold):
+    """Handle live transaction simulation."""
+
+    st.subheader("▶ Live Transaction Stream")
+    st.caption("Simulating real-time transaction monitoring")
+
+    if st.button("Start Simulation", type="primary"):
+        X_test = pd.read_csv("outputs/v1/X_test_engineered.csv")
+        progress = st.progress(0)
+        results_container = st.empty()
+        results = []
+
+        for i in range(20):
+            sample = X_test.sample(1)
+            proba = model.predict_proba(sample)[0][1]
+            status = "🔴 FRAUD" if proba >= threshold else "🟢 LEGIT"
+
+            results.append({
+                'TX #': i + 1,
+                'Amount': f"€{abs(sample['Amount'].values[0]):.2f}",
+                'Probability': f"{proba:.1%}",
+                'Status': status
+            })
+
+            with results_container.container():
+                st.dataframe(
+                    pd.DataFrame(results), use_container_width=True
+                )
+
+            progress.progress((i + 1) / 20)
+            time.sleep(0.3)
+
+        fraud_count = sum(1 for r in results if 'FRAUD' in r['Status'])
+        st.metric("Fraud Detected", f"{fraud_count} / 20")
