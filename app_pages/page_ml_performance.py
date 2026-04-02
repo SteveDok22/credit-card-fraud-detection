@@ -126,3 +126,22 @@ def page_ml_performance():
                 height=400
             )
             st.plotly_chart(fig, use_container_width=True)
+
+        with col2:
+            prec_vals, rec_vals, _ = precision_recall_curve(
+                y_test, y_test_proba
+            )
+            avg_prec = average_precision_score(y_test, y_test_proba)
+            fig = go.Figure()
+            fig.add_trace(go.Scatter(
+                x=rec_vals, y=prec_vals,
+                name=f'PR Curve (AP = {avg_prec:.3f})',
+                line=dict(color='#EF553B', width=2)
+            ))
+            fig.update_layout(
+                title='Precision-Recall Curve',
+                xaxis_title='Recall',
+                yaxis_title='Precision',
+                height=400
+            )
+            st.plotly_chart(fig, use_container_width=True)
