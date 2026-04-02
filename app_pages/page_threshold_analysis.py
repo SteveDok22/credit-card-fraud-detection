@@ -72,3 +72,29 @@ def page_threshold_analysis():
         ))
         fig.update_layout(height=350)
         st.plotly_chart(fig, use_container_width=True)
+
+    with col_costs:
+        st.subheader("💰 Business Cost Calculator")
+        cost_fn = st.number_input(
+            "Cost per missed fraud ($)", value=5000, step=500,
+            help="Average loss when fraud is not caught"
+        )
+        cost_fp = st.number_input(
+            "Cost per false alarm ($)", value=50, step=10,
+            help="Cost of investigating a legitimate transaction"
+        )
+
+        total_cost = (fn * cost_fn) + (fp * cost_fp)
+        fraud_losses = fn * cost_fn
+        investigation_costs = fp * cost_fp
+
+        st.metric("Total Business Cost", f"${total_cost:,.0f}")
+        st.write(
+            f"- Missed fraud losses: **${fraud_losses:,.0f}** ({fn} cases)"
+        )
+        st.write(
+            f"- Investigation costs: **${investigation_costs:,.0f}** "
+            f"({fp} cases)"
+        )
+
+    st.write("---")
