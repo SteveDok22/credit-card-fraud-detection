@@ -275,3 +275,55 @@ chi2, p_val, dof, expected = chi2_contingency(contingency)
 - **Reference:** [scipy.stats.chi2_contingency](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.chi2_contingency.html)
 
 ---
+
+### Plotly (v5.17.0) — Interactive Visualisations
+- **Source:** [Plotly Documentation](https://plotly.com/python/)
+- **License:** MIT License
+- **Usage:** Dashboard interactive charts
+
+#### Code Adaptations:
+```python
+# Plotly Express histogram with marginal from Plotly documentation
+# Used in notebooks/02_DataVisualization.ipynb and app_pages/page_fraud_study.py
+import plotly.express as px
+
+fig = px.histogram(
+    df, x='Amount', color='Class',
+    marginal='box', barmode='overlay',
+    color_discrete_map={0: '#636EFA', 1: '#EF553B'},
+    opacity=0.7
+)
+```
+- **Reference:** [Plotly Express Histogram](https://plotly.com/python/histograms/)
+```python
+# Plotly Gauge indicator from Plotly Graph Objects documentation
+# Used in app_pages/page_detector.py
+import plotly.graph_objects as go
+
+fig = go.Figure(go.Indicator(
+    mode="gauge+number",
+    value=proba * 100,
+    gauge={
+        'axis': {'range': [0, 100]},
+        'steps': [
+            {'range': [0, 30], 'color': '#d4edda'},
+            {'range': [30, 70], 'color': '#fff3cd'},
+            {'range': [70, 100], 'color': '#f8d7da'}
+        ]
+    }
+))
+```
+- **Reference:** [Plotly Indicator](https://plotly.com/python/indicator/)
+```python
+# Plotly Heatmap for confusion matrix from Plotly documentation
+# Used in app_pages/page_threshold_analysis.py
+fig = go.Figure(data=go.Heatmap(
+    z=[[tn, fp], [fn, tp]],
+    x=['Predicted Legit', 'Predicted Fraud'],
+    y=['Actual Legit', 'Actual Fraud'],
+    colorscale='RdBu'
+))
+```
+- **Reference:** [Plotly Heatmaps](https://plotly.com/python/heatmaps/)
+
+---
