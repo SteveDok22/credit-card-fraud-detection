@@ -101,3 +101,28 @@ def page_ml_performance():
             report_df.style.format('{:.4f}'),
             use_container_width=True
         )
+
+    with tab2:
+        st.header("ROC and Precision-Recall Curves")
+        col1, col2 = st.columns(2)
+
+        with col1:
+            fpr, tpr, _ = roc_curve(y_test, y_test_proba)
+            roc_auc = auc(fpr, tpr)
+            fig = go.Figure()
+            fig.add_trace(go.Scatter(
+                x=fpr, y=tpr,
+                name=f'XGBoost (AUC = {roc_auc:.3f})',
+                line=dict(color='#636EFA', width=2)
+            ))
+            fig.add_trace(go.Scatter(
+                x=[0, 1], y=[0, 1], name='Random',
+                line=dict(dash='dash', color='grey')
+            ))
+            fig.update_layout(
+                title='ROC Curve',
+                xaxis_title='False Positive Rate',
+                yaxis_title='True Positive Rate',
+                height=400
+            )
+            st.plotly_chart(fig, use_container_width=True)
