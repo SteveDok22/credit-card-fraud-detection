@@ -93,3 +93,11 @@ def page_ml_performance():
                 height=300
             )
             st.plotly_chart(fig, use_container_width=True)
+
+        # Classification report
+        st.subheader("Test Set Classification Report")
+        report_df = pd.DataFrame(test_report).transpose()
+        st.dataframe(
+            report_df.style.format('{:.4f}'),
+            use_container_width=True
+        )
