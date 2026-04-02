@@ -50,3 +50,13 @@ def page_ml_performance():
         )
 
     st.write("---")
+
+    # Tabs
+    tab1, tab2, tab3, tab4 = st.tabs([
+        "Confusion Matrix", "ROC & PR Curves",
+        "Feature Importance", "Hyperparameters"
+    ])
+
+    with tab1:
+        st.header("Confusion Matrices")
+        col1, col2 = st.columns(2)
