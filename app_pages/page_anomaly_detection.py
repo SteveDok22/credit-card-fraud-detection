@@ -104,3 +104,38 @@ def page_anomaly_detection():
 
     # Comparison with XGBoost
     st.header("Supervised vs Unsupervised")
+
+    with open("outputs/comparison_results.json") as f:
+        comp = json.load(f)
+
+    comp_df = pd.DataFrame({
+        'Metric': ['F1', 'Precision', 'Recall', 'AUC-ROC'],
+        'XGBoost': [
+            comp['xgboost']['f1'], comp['xgboost']['precision'],
+            comp['xgboost']['recall'], comp['xgboost']['auc_roc']
+        ],
+        'Autoencoder': [
+            comp['autoencoder']['f1'], comp['autoencoder']['precision'],
+            comp['autoencoder']['recall'], comp['autoencoder']['auc_roc']
+        ]
+    })
+    st.dataframe(
+        comp_df.style.format(
+            {'XGBoost': '{:.4f}', 'Autoencoder': '{:.4f}'}
+        ),
+        use_container_width=True
+    )
+
+    st.write(
+        f"**Unique catches:** The autoencoder catches "
+        f"**{comp['overlap']['autoencoder_only']}** fraud cases "
+        f"that XGBoost misses."
+    )
+
+    st.write("---")
+    st.success(
+        "**BR3 Conclusion:** The autoencoder successfully identifies "
+        "anomalous transactions based on reconstruction error, "
+        "demonstrating its value as a complementary detection layer "
+        "for novel fraud patterns."
+    )
