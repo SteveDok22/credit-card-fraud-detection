@@ -165,4 +165,39 @@ def page_ml_performance():
         fig.update_layout(yaxis={'categoryorder': 'total ascending'})
         st.plotly_chart(fig, use_container_width=True)
 
+    with tab4:
+        st.header("Hyperparameter Tuning")
+        st.write(
+            f"**Method:** RandomizedSearchCV "
+            f"({tuning['n_iterations']} iterations, "
+            f"{tuning['cv_folds']}-fold stratified CV)"
+        )
+        st.write(f"**Best CV F1:** {tuning['best_score']:.4f}")
 
+        st.subheader("Best Parameters")
+        st.json(tuning['best_params'])
+
+        st.subheader("Tuning Rationale")
+        rationale = pd.DataFrame({
+            'Parameter': [
+                'n_estimators', 'max_depth', 'learning_rate',
+                'min_child_weight', 'subsample', 'colsample_bytree',
+                'gamma', 'scale_pos_weight'
+            ],
+            'Values Tested': [
+                '100, 300, 500', '3, 5, 7', '0.01, 0.05, 0.1',
+                '1, 3, 5', '0.7, 0.8, 0.9', '0.7, 0.8, 0.9',
+                '0, 0.1, 0.3', '1, 10, 50'
+            ],
+            'Rationale': [
+                'Balance ensemble strength vs computation',
+                'Shallow trees prevent overfitting on rare fraud',
+                'Lower rates produce more robust models',
+                'Conservative splits for rare class patterns',
+                'Row subsampling reduces variance',
+                'Prevents over-reliance on dominant features',
+                'Regularisation through minimum loss reduction',
+                'Additional class imbalance handling'
+            ]
+        })
+        st.dataframe(rationale, use_container_width=True)
