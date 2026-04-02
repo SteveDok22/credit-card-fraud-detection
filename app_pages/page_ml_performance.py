@@ -60,3 +60,36 @@ def page_ml_performance():
     with tab1:
         st.header("Confusion Matrices")
         col1, col2 = st.columns(2)
+
+        # Train set
+        with col1:
+            st.subheader("Train Set")
+            y_train_pred = model.predict(X_train)
+            cm_train = confusion_matrix(y_train, y_train_pred)
+            fig = go.Figure(data=go.Heatmap(
+                z=cm_train, colorscale='Blues',
+                text=[[f"{v:,}" for v in row] for row in cm_train],
+                texttemplate="%{text}",
+                textfont={"size": 14}, showscale=False
+            ))
+            fig.update_layout(
+                xaxis_title='Predicted', yaxis_title='Actual',
+                height=300
+            )
+            st.plotly_chart(fig, use_container_width=True)
+
+        # Test set
+        with col2:
+            st.subheader("Test Set")
+            cm_test = confusion_matrix(y_test, y_test_pred)
+            fig = go.Figure(data=go.Heatmap(
+                z=cm_test, colorscale='Reds',
+                text=[[f"{v:,}" for v in row] for row in cm_test],
+                texttemplate="%{text}",
+                textfont={"size": 14}, showscale=False
+            ))
+            fig.update_layout(
+                xaxis_title='Predicted', yaxis_title='Actual',
+                height=300
+            )
+            st.plotly_chart(fig, use_container_width=True)
