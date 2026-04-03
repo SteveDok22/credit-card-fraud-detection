@@ -94,7 +94,7 @@ try:
 
     tf.random.set_seed(42)
 
-     # Legitimate only
+    # Legitimate only
     X_train_full = pd.read_csv("outputs/v1/X_train_engineered.csv")
     y_train_full = pd.read_csv("outputs/v1/y_train.csv").squeeze()
     X_train_legit = X_train_full[y_train_full == 0]
@@ -185,6 +185,7 @@ try:
             best_f1 = f1
             best_threshold = t
             best_p = p
+
     # Save everything
     autoencoder.save("outputs/v3/autoencoder_model.h5")
     joblib.dump(ae_scaler, "outputs/v3/ae_scaler.pkl")
@@ -206,4 +207,61 @@ except Exception as e:
 
 print("\n" + "=" * 50)
 print("STEP 3: Generate comparison results")
+print("=" * 50)
+
+try:
+    recon_errors = joblib.load("outputs/v3/reconstruction_errors.pkl")
+    with open("outputs/v3/ae_threshold.json") as f:
+        ae_data = json.load(f)
+
+    with open("outputs/v2/optimal_threshold.json") as f:
+        xgb_thresh = json.load(f)['optimal_threshold']
+
+    from sklearn.metrics import classification_report, roc_curve, auc
+
+    xgb_pred = (y_test_proba >= xgb_thresh).astype(int)
+    ae_pred = (recon_errors > ae_data['threshold']).astype(int)
+
+    xgb_report = classification_report(y_test, xgb_pred, output_dict=True)
+    ae_report = classification_report(y_test, ae_pred, output_dict=True)
+
+    ae_fpr, ae_tpr, _ = roc_curve(y_test, recon_errors)
+    ae_auc = auc(ae_fpr, ae_tpr)
+
+    xgb_only = int(((xgb_pred == 1) & (ae_pred == 0) & (y_test == 1)).sum())
+    ae_only = int(((xgb_pred == 0) & (ae_pred == 1) & (y_test == 1)).sum())
+    both = int(((xgb_pred == 1) & (ae_pred == 1) & (y_test == 1)).sum())
+    neither = int(((xgb_pred == 0) & (ae_pred == 0) & (y_test == 1)).sum())
+
+    comparison = {
+        'xgboost': {
+            'f1': float(xgb_report['1']['f1-score']),
+            'precision': float(xgb_report['1']['precision']),
+            'recall': float(xgb_report['1']['recall']),
+            'auc_roc': float(roc_auc)
+        },
+        'autoencoder': {
+            'f1': float(ae_report['1']['f1-score']),
+            'precision': float(ae_report['1']['precision']),
+            'recall': float(ae_report['1']['recall']),
+            'auc_roc': float(ae_auc)
+        },
+        'ensemble': {'f1': 0, 'precision': 0, 'recall': 0},
+        'overlap': {
+            'caught_by_both': both,
+            'xgboost_only': xgb_only,
+            'autoencoder_only': ae_only,
+            'missed_by_both': neither
+        }
+    }
+
+    with open("outputs/comparison_results.json", 'w') as f:
+        json.dump(comparison, f, indent=2)
+    print("comparison_results.json saved.")
+
+except Exception as e:
+    print(f"Comparison error: {e}")
+
+print("\n" + "=" * 50)
+print("DONE! Check outputs/v2 and outputs/v3")
 print("=" * 50)
