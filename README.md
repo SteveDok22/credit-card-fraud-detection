@@ -550,6 +550,29 @@ pip install imbalanced-learn
 
 ---
 
+#### Bug #10: Jupyter Kernel Not Found on MacBook
+**Issue:** Jupyter notebooks showing "No Kernel" after switching development from Windows to MacBook
+**Cause:** Virtual environment kernel was not registered with Jupyter on the new machine
+**Fix:** Installed ipykernel and registered the venv:
+```bash
+pip install ipykernel
+python -m ipykernel install --user --name=venv --display-name="Python (venv)"
+```
+**Status:** ✅ Resolved
+
+---
+
+#### Bug #11: XGBoost libomp Missing on macOS
+**Issue:** `XGBoostError: XGBoost Library (libxgboost.dylib) could not be loaded` when running model on MacBook
+**Cause:** XGBoost requires the OpenMP runtime library (`libomp`) which is not included by default on macOS
+**Fix:** Installed libomp via Homebrew:
+```bash
+brew install libomp
+```
+**Status:** ✅ Resolved
+
+---
+
 ### Known Issues
 
 | Issue | Description | Impact | Workaround |
