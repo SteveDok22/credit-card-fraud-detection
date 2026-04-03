@@ -185,3 +185,25 @@ try:
             best_f1 = f1
             best_threshold = t
             best_p = p
+    # Save everything
+    autoencoder.save("outputs/v3/autoencoder_model.h5")
+    joblib.dump(ae_scaler, "outputs/v3/ae_scaler.pkl")
+    joblib.dump(recon_errors, "outputs/v3/reconstruction_errors.pkl")
+
+    with open("outputs/v3/ae_threshold.json", 'w') as f:
+        json.dump({
+            'threshold': float(best_threshold),
+            'percentile': int(best_p),
+            'best_f1': float(best_f1)
+        }, f, indent=2)
+
+    print(f"Autoencoder threshold: {best_threshold:.6f} (P{best_p})")
+    print("All v3 files saved.")
+
+except Exception as e:
+    print(f"Autoencoder error: {e}")
+    print("TensorFlow may not be installed. Run: pip install tensorflow")
+
+print("\n" + "=" * 50)
+print("STEP 3: Generate comparison results")
+print("=" * 50)
