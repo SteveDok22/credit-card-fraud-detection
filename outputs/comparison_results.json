@@ -1,0 +1,25 @@
+{
+  "xgboost": {
+    "f1": 0.8654970760233918,
+    "precision": 0.9736842105263158,
+    "recall": 0.7789473684210526,
+    "auc_roc": 0.9663994410838662
+  },
+  "autoencoder": {
+    "f1": 0.20596205962059622,
+    "precision": 0.1181959564541213,
+    "recall": 0.8,
+    "auc_roc": 0.9349704422925594
+  },
+  "ensemble": {
+    "f1": 0,
+    "precision": 0,
+    "recall": 0
+  },
+  "overlap": {
+    "caught_by_both": 71,
+    "xgboost_only": 3,
+    "autoencoder_only": 5,
+    "missed_by_both": 16
+  }
+}
