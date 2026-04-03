@@ -577,8 +577,9 @@ brew install libomp
 
 | Issue | Description | Impact | Workaround |
 |-------|-------------|--------|------------|
-| Windows Kaggle CLI | Kaggle download + unzip commands require Linux shell | Low | Download dataset manually from Kaggle website |
+| Windows Kaggle CLI | Kaggle download + unzip commands require Linux/Mac shell | Low | Download dataset manually from Kaggle website |
 | Plotly in Jupyter | Plotly charts may not render in some Jupyter configurations | Low | Use `fig.show()` or install `nbformat` |
+| Cross-machine development | Output files not synced when switching between Windows and Mac | Medium | Run `fix_outputs.py` to regenerate all artifacts |
 ---
 
 ## Deployment
