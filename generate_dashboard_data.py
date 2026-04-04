@@ -22,3 +22,13 @@ sample = pd.concat([legit, fraud]).sample(frac=1, random_state=42)
 os.makedirs("outputs/dashboard", exist_ok=True)
 
 # Save full class counts for accurate stats
+dataset_stats = {
+    'total_transactions': int(len(df)),
+    'fraud_count': int(df['Class'].sum()),
+    'legit_count': int((df['Class'] == 0).sum()),
+    'fraud_pct': float(df['Class'].mean()),
+    'amount_mean_legit': float(df[df['Class'] == 0]['Amount'].mean()),
+    'amount_median_legit': float(df[df['Class'] == 0]['Amount'].median()),
+    'amount_mean_fraud': float(df[df['Class'] == 1]['Amount'].mean()),
+    'amount_median_fraud': float(df[df['Class'] == 1]['Amount'].median()),
+}
