@@ -573,6 +573,43 @@ brew install libomp
 
 ---
 
+#### Bug #12: Git Push Rejected — Non-Fast-Forward
+**Issue:** `error: failed to push some refs` with `non-fast-forward` error when pushing from MacBook
+**Cause:** Windows and MacBook had divergent commit histories after working on both machines without syncing
+**Fix:** Aborted the failed rebase and reset to remote state:
+```bash
+git rebase --abort
+git fetch origin
+git reset --hard origin/main
+```
+Then regenerated all output files locally on MacBook before committing.
+**Status:** ✅ Resolved
+
+---
+
+#### Bug #13: ModuleNotFoundError — No module named 'tensorflow'
+**Issue:** `ModuleNotFoundError: No module named 'tensorflow'` when running Autoencoder notebook on MacBook
+**Cause:** TensorFlow was not installed in the MacBook virtual environment
+**Fix:** Installed TensorFlow:
+```bash
+pip install tensorflow
+```
+**Status:** ✅ Resolved
+
+---
+
+#### Bug #14: ML Output Files Missing After Machine Switch
+**Issue:** Dashboard pages showing `FileNotFoundError` for `shap_explainer.pkl`, `reconstruction_errors.pkl`, and other artifacts
+**Cause:** ML model output files (`.pkl`, `.h5`, `.png`) were generated on Windows but not committed to Git. After switching to MacBook, the `outputs/v2` and `outputs/v3` directories were incomplete or missing.
+**Fix:** Created `fix_outputs.py` script to regenerate all missing artifacts directly from the saved model and data files:
+```bash
+python fix_outputs.py
+```
+This script generates SHAP explainer, feature importance, autoencoder model, reconstruction errors, and comparison results in a single run.
+**Status:** ✅ Resolved
+
+---
+
 ### Known Issues
 
 | Issue | Description | Impact | Workaround |

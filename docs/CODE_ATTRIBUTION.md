@@ -376,6 +376,122 @@ os.environ['KAGGLE_CONFIG_DIR'] = os.getcwd()
 
 ---
 
+## Dashboard Pages (Streamlit)
+
+### Page Structure Pattern
+- **Source:** [Streamlit Multi-page Apps](https://docs.streamlit.io/develop/concepts/multipage-apps)
+- **License:** Apache License 2.0
+- **Usage:** Dashboard page organisation with sidebar navigation
+
+#### Code Adaptations:
+```python
+# Multi-page pattern using dictionary routing
+# Used in app.py lines 15-28
+pages = {
+    "📋 Project Summary": page_summary,
+    "🔎 Fraud Pattern Study": page_fraud_study,
+}
+selection = st.sidebar.radio("Go to", list(pages.keys()))
+pages[selection]()
+```
+- **Reference:** [Streamlit Navigation](https://docs.streamlit.io/develop/tutorials/multipage/st.page_link-nav)
+
+### Interactive Widgets
+```python
+# Checkbox-controlled visualisations from Streamlit documentation
+# Used in app_pages/page_fraud_study.py
+if st.checkbox("Show Class Distribution"):
+    fig = px.bar(...)
+    st.plotly_chart(fig, use_container_width=True)
+```
+- **Reference:** [Streamlit Checkbox](https://docs.streamlit.io/develop/api-reference/widgets/st.checkbox)
+```python
+# Slider widget for threshold tuning from Streamlit documentation
+# Used in app_pages/page_threshold_analysis.py
+threshold = st.slider(
+    "Decision Threshold",
+    min_value=0.05, max_value=0.95,
+    value=float(default_threshold), step=0.01
+)
+```
+- **Reference:** [Streamlit Slider](https://docs.streamlit.io/develop/api-reference/widgets/st.slider)
+```python
+# File uploader for CSV batch processing from Streamlit documentation
+# Used in app_pages/page_detector.py
+uploaded = st.file_uploader("Choose a CSV file", type=['csv'])
+```
+- **Reference:** [Streamlit File Uploader](https://docs.streamlit.io/develop/api-reference/widgets/st.file_uploader)
+```python
+# Tabs layout for organising content from Streamlit documentation
+# Used in app_pages/page_ml_performance.py
+tab1, tab2, tab3, tab4 = st.tabs([
+    "Confusion Matrix", "ROC & PR Curves",
+    "Feature Importance", "Hyperparameters"
+])
+```
+- **Reference:** [Streamlit Tabs](https://docs.streamlit.io/develop/api-reference/layout/st.tabs)
+```python
+# Metric display from Streamlit documentation
+# Used across multiple dashboard pages
+col1, col2, col3 = st.columns(3)
+col1.metric("Precision", f"{precision:.3f}")
+col2.metric("Recall", f"{recall:.3f}")
+col3.metric("F1-Score", f"{f1:.3f}")
+```
+- **Reference:** [Streamlit Metric](https://docs.streamlit.io/develop/api-reference/data/st.metric)
+```python
+# Expander for collapsible content from Streamlit documentation
+# Used in app_pages/page_summary.py
+with st.expander("ML Terminology Glossary"):
+    st.markdown("**Binary Classification** — ...")
+```
+- **Reference:** [Streamlit Expander](https://docs.streamlit.io/develop/api-reference/layout/st.expander)
+
+### Plotly Gauge Indicator
+```python
+# Gauge chart for fraud probability from Plotly documentation
+# Used in app_pages/page_detector.py
+fig = go.Figure(go.Indicator(
+    mode="gauge+number",
+    value=proba * 100,
+    title={'text': "Fraud Risk Score"},
+    gauge={
+        'axis': {'range': [0, 100]},
+        'steps': [
+            {'range': [0, 30], 'color': '#d4edda'},
+            {'range': [30, 70], 'color': '#fff3cd'},
+            {'range': [70, 100], 'color': '#f8d7da'}
+        ]
+    }
+))
+```
+- **Reference:** [Plotly Indicator Gauge](https://plotly.com/python/indicator/)
+
+### Plotly Heatmap for Confusion Matrix
+```python
+# Interactive confusion matrix from Plotly documentation
+# Used in app_pages/page_threshold_analysis.py and page_ml_performance.py
+fig = go.Figure(data=go.Heatmap(
+    z=[[tn, fp], [fn, tp]],
+    x=['Pred Legit', 'Pred Fraud'],
+    y=['Actual Legit', 'Actual Fraud'],
+    colorscale='RdBu',
+    texttemplate="%{text}"
+))
+```
+- **Reference:** [Plotly Heatmaps](https://plotly.com/python/heatmaps/)
+
+---
+
+## Utility Scripts
+
+### fix_outputs.py — ML Artifact Generation
+- **Source:** Custom script written to regenerate ML output files
+- **Usage:** Generates SHAP explainer, feature importance, autoencoder model, and comparison results when switching between development machines
+- **Libraries Used:** All libraries listed above (XGBoost, SHAP, TensorFlow, Scikit-learn)
+
+---
+
 ## Python Standard Library
 
 ### NumPy — Numerical Computing
