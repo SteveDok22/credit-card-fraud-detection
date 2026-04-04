@@ -106,28 +106,27 @@ A fictional FinTech payment processing company, **SecurePay Solutions**, has bee
 
 ---
 
-# Hypotheses and Validation
+## Hypotheses and Validation
 
 ### H1: Transaction Amount and Fraud
 - **Statement:** Fraudulent transactions have significantly different amount distributions compared to legitimate transactions.
 - **Validation:** Mann-Whitney U test + Cohen's d effect size
-- **Result:** *To be completed after analysis*
+- **Result:** ✅ Validated — p = 8.58e-06, Cohen's d = 0.1356. Statistically significant difference confirmed. Fraud transactions tend to have lower amounts, suggesting fraudsters keep amounts small to avoid detection.
 
 ### H2: Temporal Patterns in Fraud
 - **Statement:** Fraud occurrence rate varies significantly across different time-of-day periods.
-- **Validation:** Chi-squared test on hourly fraud rates
-- **Result:** *To be completed after analysis*
+- **Validation:** Chi-squared test on hourly fraud rates + Cramér's V
+- **Result:** ✅ Validated — χ² = 674.44, p = 1.07e-127, Cramér's V = 0.0487. Fraud rate varies significantly by hour of day. This supports the engineered Hour feature used in the model.
 
 ### H3: PCA Feature Separation
 - **Statement:** At least 3 PCA components show statistically significant separation between fraud and legitimate classes with large effect sizes.
 - **Validation:** Mann-Whitney U test per feature + ranking by Cohen's d
-- **Result:** *To be completed after analysis*
+- **Result:** ✅ Validated — 17 features show significant separation (p < 0.001, |d| > 0.5). Top discriminators: V14, V12, V10. Far exceeds the minimum of 3 required.
 
 ### H4: Model Performance Threshold
-- **Statement:** An optimised ensemble classifier can achieve F1 >= 0.80 on the fraud class while maintaining Precision >= 0.75, meeting the business requirement for automated fraud screening.
+- **Statement:** An optimised ensemble classifier can achieve F1 >= 0.80 on the fraud class while maintaining Precision >= 0.75.
 - **Validation:** Evaluation metrics on holdout test set + comparison with unsupervised baseline
-- **Result:** *To be completed after model training*
-
+- **Result:** ✅ Validated — See ML Pipeline Performance page for full metrics.
 ---
 
 ## Rationale to Map Business Requirements to Data Visualisations and ML Tasks
@@ -372,6 +371,9 @@ A fictional FinTech payment processing company, **SecurePay Solutions**, has bee
 
 | Library | Version | Purpose |
 |---------|---------|---------|
+| plotly | 5.17.0 | Interactive visualisations |
+| seaborn | 0.12.0 | Statistical visualisations |
+| matplotlib | 3.7.0 | Static plots and SHAP integration |
 
 
 #### Web Application
