@@ -218,3 +218,15 @@ data/creditcard.csv
 # Large output CSV files (recreated by notebooks)
 outputs/v1/*.csv
 outputs/v1/*.pkl
+
+# Large output CSV files (regenerate via notebooks)
+outputs/v1/X_train.csv
+outputs/v1/X_train_resampled.csv
+outputs/v1/X_train_engineered.csv
+outputs/v1/X_test.csv
+outputs/v1/X_test_engineered.csv
+outputs/v1/y_train.csv
+outputs/v1/y_train_resampled.csv
+outputs/v1/robust_scaler.pkl
+outputs/v1/xgb_baseline.pkl
+outputs/v3/autoencoder_model.h5
