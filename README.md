@@ -612,6 +612,22 @@ This script generates SHAP explainer, feature importance, autoencoder model, rec
 
 ---
 
+#### Bug #15: Git Repository Too Large for Deployment (683MB)
+**Issue:** `outputs/` folder totalled 683MB, exceeding GitHub's 100MB per-file limit and making Render deployment impossible
+**Cause:** Large CSV files generated during data preparation (X_train_resampled.csv = 320MB, X_train_engineered.csv = 160MB, X_train.csv = 128MB) were tracked by Git. These intermediate training files are needed by notebooks but not by the dashboard.
+**Fix:** Created `generate_dashboard_data.py` to pre-compute only the small files the dashboard needs (sampled data, pre-computed metrics, feature names). Added large CSV files to `.gitignore` and removed them from Git tracking:
+```bash
+git rm --cached outputs/v1/X_train_resampled.csv
+git rm --cached outputs/v1/X_train_engineered.csv
+git rm --cached outputs/v1/X_train.csv
+git rm --cached outputs/v1/X_test.csv
+git rm --cached outputs/v1/X_test_engineered.csv
+```
+Updated dashboard pages to load from `outputs/dashboard/` (~5MB) instead of the full CSV files.
+**Status:** ✅ Resolved
+
+---
+
 ### Known Issues
 
 | Issue | Description | Impact | Workaround |
