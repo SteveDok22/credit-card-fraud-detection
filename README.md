@@ -2,7 +2,7 @@
 
 A Machine Learning powered web application for detecting fraudulent credit card transactions. Built with Python, Streamlit, and XGBoost.
 
-**Live App:** [Deployed Link](https://your-app.onrender.com)
+**Live App:** [Deployed Link](https://credit-card-fraud-detection-st-4cbb00a4456a.herokuapp.com/)
 
 ---
 
