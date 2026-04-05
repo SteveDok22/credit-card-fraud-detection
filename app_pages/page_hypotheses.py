@@ -3,7 +3,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 from scipy.stats import mannwhitneyu, chi2_contingency
-from src.data_management import load_raw_data
+from src.data_management import load_sample_data
 
 
 def page_hypotheses():
@@ -12,7 +12,7 @@ def page_hypotheses():
     st.title("🧪 Project Hypotheses & Validation")
     st.write("---")
 
-    df = load_raw_data()
+    df = load_sample_data()
 
     # H1
     st.header("H1: Transaction Amount and Fraud")

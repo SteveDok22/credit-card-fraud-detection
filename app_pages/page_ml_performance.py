@@ -6,6 +6,7 @@ import pandas as pd
 import numpy as np
 import joblib
 import json
+from src.data_management import load_model, load_train_confusion_matrix
 from sklearn.metrics import (
     classification_report, confusion_matrix,
     roc_curve, auc, precision_recall_curve, average_precision_score
@@ -18,8 +19,7 @@ def page_ml_performance():
     st.title("📊 ML Pipeline Performance")
 
     # Load data
-    X_train = pd.read_csv("outputs/v1/X_train_resampled.csv")
-    y_train = pd.read_csv("outputs/v1/y_train_resampled.csv").squeeze()
+    cm_train_data = load_train_confusion_matrix()
     y_test = pd.read_csv("outputs/v1/y_test.csv").squeeze()
     model = joblib.load("outputs/v2/fraud_model_optimized.pkl")
     y_test_proba = joblib.load("outputs/v2/test_probabilities.pkl")
@@ -64,8 +64,7 @@ def page_ml_performance():
         # Train set
         with col1:
             st.subheader("Train Set")
-            y_train_pred = model.predict(X_train)
-            cm_train = confusion_matrix(y_train, y_train_pred)
+            cm_train = np.array(cm_train_data)
             fig = go.Figure(data=go.Heatmap(
                 z=cm_train, colorscale='Blues',
                 text=[[f"{v:,}" for v in row] for row in cm_train],

@@ -6,7 +6,10 @@ import pandas as pd
 import joblib
 import json
 import time
-
+from src.data_management import (
+    load_model, load_shap_explainer,
+    load_feature_names, load_simulation_sample
+)
 
 def page_detector():
     """Display the fraud detection tool page."""
@@ -19,11 +22,9 @@ def page_detector():
     st.write("---")
 
     # Load model and explainer
-    model = joblib.load("outputs/v2/fraud_model_optimized.pkl")
-    explainer = joblib.load("outputs/v2/shap_explainer.pkl")
-    feature_names = pd.read_csv(
-        "outputs/v1/X_test_engineered.csv", nrows=0
-    ).columns.tolist()
+    model = load_model()
+    explainer = load_shap_explainer()
+    feature_names = load_feature_names()
 
     with open("outputs/v2/optimal_threshold.json") as f:
         threshold = json.load(f)['optimal_threshold']
@@ -202,7 +203,7 @@ def _live_simulation(model, feature_names, threshold):
     st.caption("Simulating real-time transaction monitoring")
 
     if st.button("Start Simulation", type="primary"):
-        X_test = pd.read_csv("outputs/v1/X_test_engineered.csv")
+        X_test = load_simulation_sample()
         progress = st.progress(0)
         results_container = st.empty()
         results = []
