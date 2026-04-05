@@ -492,6 +492,54 @@ fig = go.Figure(data=go.Heatmap(
 
 ---
 
+## Deployment Optimisation
+
+### Git Large File Handling
+- **Source:** [GitHub Documentation — Removing sensitive data from a repository](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/removing-sensitive-data-from-a-repository)
+- **License:** GitHub Terms of Service
+- **Usage:** Removing large CSV files from Git tracking while keeping them locally
+
+#### Code Adaptations:
+```bash
+# Remove cached large files from Git tracking
+# Used during deployment preparation
+git rm --cached outputs/v1/X_train_resampled.csv
+git rm --cached outputs/v1/X_train_engineered.csv
+git rm --cached outputs/v1/X_train.csv
+```
+- **Reference:** [git rm --cached](https://git-scm.com/docs/git-rm)
+
+### Streamlit Caching for Dashboard Performance
+- **Source:** [Streamlit Caching Documentation](https://docs.streamlit.io/develop/concepts/architecture/caching)
+- **Usage:** Pre-computing dashboard data to avoid loading large files at runtime
+
+#### Code Adaptations:
+```python
+# Pre-compute small dashboard files from large training data
+# Used in generate_dashboard_data.py
+sample = pd.concat([
+    df[df['Class'] == 0].sample(10000, random_state=42),
+    df[df['Class'] == 1]
+])
+sample.to_csv("outputs/dashboard/data_sample.csv", index=False)
+```
+- **Reference:** [Streamlit Performance Best Practices](https://docs.streamlit.io/develop/concepts/architecture/caching)
+
+### .gitignore for Large ML Artifacts
+- **Source:** [GitHub .gitignore Documentation](https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files)
+- **Usage:** Excluding large intermediate CSV files from version control while keeping small model artifacts
+
+#### Code Adaptations:
+```gitignore
+# Large output CSV files (regenerate via notebooks)
+outputs/v1/X_train.csv
+outputs/v1/X_train_resampled.csv
+outputs/v1/X_train_engineered.csv
+```
+- **Reference:** [Gitignore Patterns](https://git-scm.com/docs/gitignore)
+
+---
+
 ## Python Standard Library
 
 ### NumPy — Numerical Computing
