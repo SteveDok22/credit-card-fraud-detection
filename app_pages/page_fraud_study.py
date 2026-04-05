@@ -4,7 +4,7 @@ import plotly.express as px
 import seaborn as sns
 import matplotlib.pyplot as plt
 import pandas as pd
-from src.data_management import load_raw_data
+ffrom src.data_management import load_sample_data, load_dataset_stats
 
 
 def page_fraud_study():
@@ -17,13 +17,14 @@ def page_fraud_study():
     )
     st.write("---")
 
-    df = load_raw_data()
+    df = load_sample_data()
+    stats = load_dataset_stats()
 
     # Plot 1: Class Distribution
     if st.checkbox("Show Class Distribution"):
         fig = px.bar(
             x=['Legitimate', 'Fraud'],
-            y=[len(df[df['Class'] == 0]), len(df[df['Class'] == 1])],
+            y=[stats['legit_count'], stats['fraud_count']],
             color=['Legitimate', 'Fraud'],
             color_discrete_map={
                 'Legitimate': '#636EFA', 'Fraud': '#EF553B'
