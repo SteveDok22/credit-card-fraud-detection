@@ -50,3 +50,20 @@ cm_train = confusion_matrix(y_train, y_train_pred).tolist()
 with open("outputs/dashboard/train_confusion_matrix.json", 'w') as f:
     json.dump(cm_train, f)
 print("Train confusion matrix saved.")
+
+# --- For page_detector (feature names + small test sample) ---
+X_test = pd.read_csv("outputs/v1/X_test_engineered.csv")
+feature_names = X_test.columns.tolist()
+
+with open("outputs/dashboard/feature_names.json", 'w') as f:
+    json.dump(feature_names, f)
+
+# Small test sample for live simulation
+sim_sample = X_test.sample(100, random_state=42)
+sim_sample.to_csv("outputs/dashboard/simulation_sample.csv", index=False)
+print("Simulation sample saved.")
+
+print("\nDone! Dashboard data in outputs/dashboard/")
+for f_name in sorted(os.listdir("outputs/dashboard")):
+    size = os.path.getsize(f"outputs/dashboard/{f_name}") / 1024
+    print(f"  {f_name}: {size:.1f} KB")
