@@ -7,9 +7,9 @@ import joblib
 import json
 import time
 from src.data_management import (
-    load_model, load_shap_explainer,
-    load_feature_names, load_simulation_sample
+    load_model, load_feature_names, load_simulation_sample
 )
+import shap
 
 def page_detector():
     """Display the fraud detection tool page."""
@@ -23,7 +23,7 @@ def page_detector():
 
     # Load model and explainer
     model = load_model()
-    explainer = load_shap_explainer()
+    explainer = shap.TreeExplainer(model)
     feature_names = load_feature_names()
 
     with open("outputs/v2/optimal_threshold.json") as f:
