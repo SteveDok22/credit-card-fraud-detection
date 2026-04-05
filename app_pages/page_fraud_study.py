@@ -4,7 +4,7 @@ import plotly.express as px
 import seaborn as sns
 import matplotlib.pyplot as plt
 import pandas as pd
-ffrom src.data_management import load_sample_data, load_dataset_stats
+from src.data_management import load_sample_data, load_dataset_stats
 
 
 def page_fraud_study():
