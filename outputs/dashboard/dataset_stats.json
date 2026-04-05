@@ -1,0 +1,10 @@
+{
+  "total_transactions": 284807,
+  "fraud_count": 492,
+  "legit_count": 284315,
+  "fraud_pct": 0.001727485630620034,
+  "amount_mean_legit": 88.29102242231328,
+  "amount_median_legit": 22.0,
+  "amount_mean_fraud": 122.21132113821139,
+  "amount_median_fraud": 9.25
+}
