@@ -55,7 +55,7 @@ This project follows the **CRISP-DM** (Cross-Industry Standard Process for Data 
 | Data Preparation | Clean, engineer features, handle imbalance | Notebooks 03-04 |
 | Modelling | Train XGBoost + Autoencoder pipelines | Notebooks 05-06 |
 | Evaluation | Validate against business success metrics | Notebook 07, Dashboard Page 7 |
-| Deployment | Streamlit dashboard on Render | Live application |
+| Deployment | Streamlit dashboard on Heroku | Live application |
 
 ### ML Pipeline Flow
 
@@ -364,7 +364,7 @@ A fictional FinTech payment processing company, **SecurePay Solutions**, has bee
 | xgboost | 2.0.0 | Gradient boosting classifier |
 | imbalanced-learn | 0.11.0 | SMOTE oversampling for class imbalance |
 | shap | 0.42.0 | Model explainability (SHAP values) |
-| tensorflow-cpu | 2.13.0 | Autoencoder neural network |
+| tensorflow-cpu | 2.13.0 | Autoencoder neural network (local training only — not deployed) |
 | scipy | 1.11.0 | Statistical hypothesis testing |
 
 #### Data Visualisation
@@ -396,7 +396,7 @@ A fictional FinTech payment processing company, **SecurePay Solutions**, has bee
 | Git | Version control |
 | GitHub | Repository hosting |
 | GitHub Projects | Agile project management |
-| Render | Cloud deployment |
+| Heroku | Cloud deployment |
 | Jupyter Notebook | Data analysis and modelling |
 | VS Code | Code editor |
 
@@ -432,11 +432,43 @@ All user stories were created as GitHub Issues with:
 
 | Feature | Action | Expected | Result |
 |---------|--------|----------|--------|
+| Navigation | Click each of the 7 pages in sidebar | Page loads without error | ✅ Pass |
+| Summary Page | Load Project Summary | Business requirements and glossary displayed | ✅ Pass |
+| Fraud Study | Toggle each checkbox | Corresponding visualisation appears | ✅ Pass |
+| Fraud Study | Select feature from dropdown | Violin plot updates to selected feature | ✅ Pass |
+| Hypotheses | Load Hypotheses page | All 4 hypotheses with metrics displayed | ✅ Pass |
+| Detector — Manual | Enter values and click Analyse | Probability score + SHAP bar chart displayed | ✅ Pass |
+| Detector — Manual | Set V14 to -15 (strong fraud signal) | High fraud probability returned | ✅ Pass |
+| Detector — Manual | Leave all values at 0 | Low fraud probability returned | ✅ Pass |
+| Detector — CSV | Upload valid CSV file | Batch results with risk flags displayed | ✅ Pass |
+| Detector — CSV | Upload non-CSV file | Error message shown | ✅ Pass |
+| Detector — Simulation | Click Start Simulation | 20 transactions processed sequentially | ✅ Pass |
+| Threshold | Move threshold slider | Precision, Recall, F1 and confusion matrix update | ✅ Pass |
+| Threshold | Change cost per missed fraud | Total business cost recalculates | ✅ Pass |
+| Threshold | Set threshold to 0.05 | High recall, low precision shown | ✅ Pass |
+| Threshold | Set threshold to 0.95 | Low recall, high precision shown | ✅ Pass |
+| Anomaly | Load Anomaly Detection page | Reconstruction error histogram displayed | ✅ Pass |
+| Anomaly | Adjust anomaly threshold slider | Recall and precision metrics update | ✅ Pass |
+| ML Performance | Click Confusion Matrix tab | Train and test matrices displayed | ✅ Pass |
+| ML Performance | Click ROC & PR Curves tab | Both curves with AUC values displayed | ✅ Pass |
+| ML Performance | Click Feature Importance tab | SHAP summary + XGBoost importance shown | ✅ Pass |
+| ML Performance | Click Hyperparameters tab | Best params + rationale table displayed | ✅ Pass |
+| ML Performance | Check success statement | Green success banner with F1 score shown | ✅ Pass |
 
 ### User Story Testing
 
 | User Story | Acceptance Criteria Met | Evidence |
 |------------|----------------------|---------|
+| 1.1 Amount distribution for fraud vs legit | ✅ | Histogram + box plot on Fraud Pattern Study page |
+| 1.2 Feature correlations with fraud | ✅ | Heatmap of top 12 features on Fraud Pattern Study page |
+| 1.3 Temporal fraud patterns | ✅ | Fraud rate by hour line plot on Fraud Pattern Study page |
+| 1.4 PCA feature distributions | ✅ | Interactive violin plots with dropdown on Fraud Pattern Study page |
+| 2.1 Input transaction and get fraud probability | ✅ | Manual entry with gauge on Fraud Detector page |
+| 2.2 Explainable prediction (SHAP) | ✅ | SHAP bar chart showing top 10 feature contributions |
+| 2.3 Batch upload and flag transactions | ✅ | CSV upload with risk flags on Fraud Detector page |
+| 2.4 Adjust decision threshold | ✅ | Interactive slider with cost calculator on Threshold page |
+| 3.1 Detect anomalies without labels | ✅ | Autoencoder reconstruction error analysis on Anomaly page |
+| 3.2 Compare supervised vs unsupervised | ✅ | Side-by-side metrics table on Anomaly Detection page |
 
 ### Validator Testing
 
@@ -628,6 +660,30 @@ Updated dashboard pages to load from `outputs/dashboard/` (~5MB) instead of the 
 
 ---
 
+#### Bug #16: Render Deployment Using Wrong Python Version
+**Issue:** Render deployed with Python 3.14.3 instead of 3.11.5, causing package build failures
+**Cause:** Render ignores `runtime.txt` by default and uses its own latest Python version
+**Fix:** Switched deployment to Heroku which correctly reads `runtime.txt`. Also removed `tensorflow-cpu` and `kaggle` from `requirements.txt` as they are not needed by the dashboard (autoencoder already trained, dataset already downloaded).
+**Status:** ✅ Resolved
+
+---
+
+#### Bug #17: SHAP Explainer Pickle Incompatibility on Heroku
+**Issue:** `AttributeError: Can't get attribute 'TreeExplainer'` when loading `shap_explainer.pkl` on Heroku
+**Cause:** The SHAP explainer was serialised with a different version of SHAP locally than the one installed on Heroku. Pickle files are version-sensitive for complex objects.
+**Fix:** Instead of loading a pre-saved explainer, compute it on-the-fly in the dashboard:
+```python
+# Before (broken):
+explainer = joblib.load("outputs/v2/shap_explainer.pkl")
+
+# After (fixed):
+import shap
+explainer = shap.TreeExplainer(model)
+```
+**Status:** ✅ Resolved
+
+---
+
 ### Known Issues
 
 | Issue | Description | Impact | Workaround |
@@ -639,32 +695,38 @@ Updated dashboard pages to load from `outputs/dashboard/` (~5MB) instead of the 
 
 ## Deployment
 
-### Render Deployment
+### Heroku
 
-The application is deployed on Render.
+The application is deployed on Heroku.
 
-**Live URL:** https://-app.onrender.com
+**Live URL:** [https://credit-card-fraud-detection-st-4cbb00a4456a.herokuapp.com/](https://credit-card-fraud-detection-st-4cbb00a4456a.herokuapp.com/)
 
 #### Deployment Steps
 
-1. **Create Render Account**
-   - Sign up at [Render](https://render.com)
+1. **Create Heroku App**
+   - Log in to [Heroku Dashboard](https://dashboard.heroku.com/)
+   - Click "New" → "Create new app"
+   - Enter app name and select region (Europe)
 
-2. **Create New Web Service**
-   - Click "New" → "Web Service"
-   - Connect to GitHub repository
+2. **Connect GitHub Repository**
+   - Go to "Deploy" tab
+   - Select "GitHub" as deployment method
+   - Search and connect `credit-card-fraud-detection` repository
 
-3. **Configure Build Settings**
-
-   | Setting | Value |
-   |---------|-------|
-   | **Build Command** | `pip install -r requirements.txt` |
-   | **Start Command** | `streamlit run app.py --server.port $PORT --server.headless true` |
-   | **Python Version** | 3.11.5 |
-
-4. **Deploy**
-   - Click "Create Web Service"
+3. **Deploy**
+   - Scroll to "Manual deploy" section
+   - Select `main` branch
+   - Click "Deploy Branch"
    - Wait for build to complete
+
+4. **Configuration Files**
+
+   | File | Purpose |
+   |------|---------|
+   | `Procfile` | Defines the start command: `web: sh setup.sh && streamlit run app.py` |
+   | `runtime.txt` | Specifies Python version: `python-3.11.5` |
+   | `setup.sh` | Configures Streamlit for headless server mode |
+   | `requirements.txt` | Python package dependencies |
 
 ---
 
@@ -766,7 +828,7 @@ For detailed code attribution, see [CODE_ATTRIBUTION.md](docs/CODE_ATTRIBUTION.m
 | Git | Version control |
 | GitHub | Repository hosting |
 | GitHub Projects | Agile project management |
-| Render | Cloud deployment |
+| Heroku | Cloud deployment |
 
 ### Acknowledgements
 - **Code Institute** — For the learning materials and assessment framework
