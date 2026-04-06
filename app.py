@@ -11,13 +11,13 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-from app_pages.page_summary import page_summary
-from app_pages.page_fraud_study import page_fraud_study
-from app_pages.page_hypotheses import page_hypotheses
-from app_pages.page_detector import page_detector
-from app_pages.page_threshold_analysis import page_threshold_analysis
-from app_pages.page_anomaly_detection import page_anomaly_detection
-from app_pages.page_ml_performance import page_ml_performance
+from app_pages.page_summary import page_summary  # noqa: E402
+from app_pages.page_fraud_study import page_fraud_study  # noqa: E402
+from app_pages.page_hypotheses import page_hypotheses  # noqa: E402
+from app_pages.page_detector import page_detector  # noqa: E402
+from app_pages.page_threshold_analysis import page_threshold_analysis  # noqa: E402
+from app_pages.page_anomaly_detection import page_anomaly_detection  # noqa: E402
+from app_pages.page_ml_performance import page_ml_performance  # noqa: E402
 
 
 pages = {
@@ -46,6 +46,7 @@ def main():
     )
 
     pages[selection]()
+
 
 if __name__ == "__main__":
     main()

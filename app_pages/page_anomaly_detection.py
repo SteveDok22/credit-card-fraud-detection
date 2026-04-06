@@ -5,7 +5,7 @@ import numpy as np
 import pandas as pd
 import joblib
 import json
-from sklearn.metrics import classification_report, f1_score
+from sklearn.metrics import classification_report
 
 
 def page_anomaly_detection():

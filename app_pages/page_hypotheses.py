@@ -36,8 +36,8 @@ def page_hypotheses():
     col3.metric("Fraud Median", f"€{fraud_amounts.median():.2f}")
 
     st.success(
-        f"✅ **Validated** — Statistically significant difference "
-        f"(p < 0.001). Fraud transactions have lower amounts."
+        "✅ **Validated** — Statistically significant difference "
+        "(p < 0.001). Fraud transactions have lower amounts."
     )
     st.info(
         "**Course of Action:** A rule-based pre-filter on transaction "

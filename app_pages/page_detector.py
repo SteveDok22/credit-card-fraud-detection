@@ -3,13 +3,13 @@ import streamlit as st
 import plotly.graph_objects as go
 import numpy as np
 import pandas as pd
-import joblib
 import json
 import time
 from src.data_management import (
     load_model, load_feature_names, load_simulation_sample
 )
 import shap
+
 
 def page_detector():
     """Display the fraud detection tool page."""
@@ -97,9 +97,9 @@ def _manual_entry(model, explainer, feature_names, threshold):
 
         with col_r:
             if proba >= threshold:
-                st.error(f"⚠️ **FRAUD DETECTED**")
+                st.error("⚠️ **FRAUD DETECTED**")
             else:
-                st.success(f"✅ **LEGITIMATE TRANSACTION**")
+                st.success("✅ **LEGITIMATE TRANSACTION**")
             st.metric("Fraud Probability", f"{proba:.1%}")
             st.metric("Threshold", f"{threshold:.2f}")
 

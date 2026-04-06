@@ -6,7 +6,7 @@ import pandas as pd
 import numpy as np
 import joblib
 import json
-from src.data_management import load_model, load_train_confusion_matrix
+from src.data_management import load_train_confusion_matrix
 from sklearn.metrics import (
     classification_report, confusion_matrix,
     roc_curve, auc, precision_recall_curve, average_precision_score
@@ -21,7 +21,7 @@ def page_ml_performance():
     # Load data
     cm_train_data = load_train_confusion_matrix()
     y_test = pd.read_csv("outputs/v1/y_test.csv").squeeze()
-    model = joblib.load("outputs/v2/fraud_model_optimized.pkl")
+    model = joblib.load("outputs/v2/fraud_model_optimized.pkl")  # noqa: F841
     y_test_proba = joblib.load("outputs/v2/test_probabilities.pkl")
 
     with open("outputs/v2/optimal_threshold.json") as f:
