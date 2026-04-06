@@ -479,6 +479,18 @@ All user stories were created as GitHub Issues with:
 
 | File | Lines | Issues | Status |
 |------|-------|--------|--------|
+| `app.py` | 52 | 0 | ✅ Pass |
+| `app_pages/page_summary.py` | 69 | 0 | ✅ Pass |
+| `app_pages/page_fraud_study.py` | 156 | 0 | ✅ Pass |
+| `app_pages/page_hypotheses.py` | 125 | 0 | ✅ Pass |
+| `app_pages/page_detector.py` | 232 | 0 | ✅ Pass |
+| `app_pages/page_threshold_analysis.py` | 139 | 0 | ✅ Pass |
+| `app_pages/page_anomaly_detection.py` | 141 | 0 | ✅ Pass |
+| `app_pages/page_ml_performance.py` | 202 | 0 | ✅ Pass |
+| `src/data_management.py` | 58 | 0 | ✅ Pass |
+| `generate_dashboard_data.py` | 68 | 0 | ✅ Pass |
+| `fix_outputs.py` | 266 | 0 | ✅ Pass |
+| **TOTAL** | **1,508** | **0** | **100%** |
 
 
 </div>
