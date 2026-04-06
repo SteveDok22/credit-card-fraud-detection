@@ -346,6 +346,72 @@ A fictional FinTech payment processing company, **SecurePay Solutions**, has bee
 
 ---
 
+## How to Use the Dashboard
+
+### Quick Start Guide
+
+#### 🔎 Fraud Pattern Study
+1. Open the **Fraud Pattern Study** page from the sidebar
+2. Toggle checkboxes to explore different visualisations
+3. Use the **dropdown** to compare individual PCA features between fraud and legitimate classes
+
+---
+
+#### 🎯 Fraud Detector — Manual Entry
+
+<div align="center">
+<img src="docs/screenshots/fraud-detector-demo.gif" alt="Fraud Detector Demo" width="700">
+</div>
+
+1. Select **Manual Entry** mode
+2. Adjust the feature sliders:
+
+**To trigger a FRAUD detection:**
+
+| Parameter | Value | Why |
+|-----------|-------|-----|
+| Amount | 50 | Low amounts are typical for fraud |
+| V14 | -8.0 | Strong negative V14 is the #1 fraud signal |
+| V12 | -4.0 | Negative V12 reinforces the fraud pattern |
+| V10 | -3.0 | Adds additional fraud signal |
+
+**To see a LEGITIMATE result:**
+
+| Parameter | Value | Why |
+|-----------|-------|-----|
+| Amount | 500 | Normal purchase amount |
+| V14 | 0.0 | Neutral value — no fraud signal |
+| V12 | 0.0 | Neutral value |
+| V10 | 0.0 | Neutral value |
+
+3. Click **🔍 Analyse Transaction**
+4. View the **fraud probability gauge** and **SHAP explanation** showing which features drove the prediction
+
+---
+
+#### 🎯 Fraud Detector — Live Simulation
+1. Select **Live Simulation** mode
+2. Click **Start Simulation**
+3. Watch 20 real test transactions being classified in real-time
+4. Each transaction receives a 🟢 LEGIT or 🔴 FRAUD label
+
+---
+
+#### ⚖️ Threshold & Cost Analysis
+1. Move the **threshold slider** to see how it affects precision and recall
+2. Lower threshold → catches more fraud but more false alarms
+3. Higher threshold → fewer false alarms but misses more fraud
+4. Adjust **cost per missed fraud** and **cost per false alarm** to find the business-optimal threshold
+
+---
+
+#### 🤖 Anomaly Detection
+1. View the **reconstruction error distribution** — fraud transactions (red) have higher errors
+2. Adjust the **anomaly threshold slider** to explore different detection sensitivity levels
+3. Compare the autoencoder metrics with XGBoost in the comparison table
+
+---
+
 ## Technologies Used
 
 ### Languages
@@ -504,6 +570,8 @@ All notebooks follow PEP8 standards and include Objectives/Inputs/Outputs header
 ### Bugs
 
 ### Resolved Issues
+
+---
 
 #### Bug #1: Notebook File Missing .ipynb Extension
 **Issue:** Jupyter notebook created without `.ipynb` extension — file named `01_DataCollection` instead of `01_DataCollection.ipynb`
