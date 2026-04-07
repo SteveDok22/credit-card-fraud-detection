@@ -2,6 +2,10 @@
 
 A Machine Learning powered web application for detecting fraudulent credit card transactions. Built with Python, Streamlit, and XGBoost.
 
+<div align="center">
+<img src="docs\screenshots\Mockup.gif" alt="Mockup" width="700">
+</div>
+
 **Live App:** [Deployed Link](https://credit-card-fraud-detection-st-4cbb00a4456a.herokuapp.com/)
 
 ---
@@ -262,7 +266,7 @@ A fictional FinTech payment processing company, **SecurePay Solutions**, has bee
 #### F1: Interactive Fraud Pattern Study
 
 <div align="center">
-<img src="docs/screenshots/fraud-study.png" alt="Fraud Study Screenshot" width="700">
+<img src="docs\screenshots\Fraud-Pattern-Study.png" alt="Fraud Study Screenshot" width="700">
 </div>
 
 - Checkbox-controlled visualisations for exploring fraud patterns
@@ -275,7 +279,7 @@ A fictional FinTech payment processing company, **SecurePay Solutions**, has bee
 #### F2: Fraud Detector with SHAP Explainability
 
 <div align="center">
-<img src="docs/screenshots/fraud-detector.png" alt="Fraud Detector Screenshot" width="700">
+<img src="docs\screenshots\Fraud-Detector.png" alt="Fraud Detector Screenshot" width="700">
 </div>
 
 - Manual transaction entry with sliders for key features
@@ -289,7 +293,7 @@ A fictional FinTech payment processing company, **SecurePay Solutions**, has bee
 #### F3: Threshold & Cost Analysis
 
 <div align="center">
-<img src="docs/screenshots/threshold-analysis.png" alt="Threshold Analysis Screenshot" width="700">
+<img src="docs\screenshots\Threshold-&-Cost-Analysis.png" alt="Threshold Analysis Screenshot" width="700">
 </div>
 
 - Interactive threshold slider with real-time metric updates
@@ -302,7 +306,7 @@ A fictional FinTech payment processing company, **SecurePay Solutions**, has bee
 #### F4: Anomaly Detection System
 
 <div align="center">
-<img src="docs/screenshots/anomaly-detection.png" alt="Anomaly Detection Screenshot" width="700">
+<img src="docs\screenshots\Anomaly-Detection.png" alt="Anomaly Detection Screenshot" width="700">
 </div>
 
 - Autoencoder-based unsupervised fraud detection
@@ -315,7 +319,7 @@ A fictional FinTech payment processing company, **SecurePay Solutions**, has bee
 #### F5: ML Pipeline Performance Dashboard
 
 <div align="center">
-<img src="docs/screenshots/ml-performance.png" alt="ML Performance Screenshot" width="700">
+<img src="docs\screenshots\ML-Pipeline-Performance.png" alt="ML Performance Screenshot" width="700">
 </div>
 
 - Algorithm comparison across RF, GB, and XGBoost
@@ -326,10 +330,6 @@ A fictional FinTech payment processing company, **SecurePay Solutions**, has bee
 ---
 
 #### F6: Statistical Hypothesis Validation
-
-<div align="center">
-<img src="docs/screenshots/hypotheses.png" alt="Hypotheses Screenshot" width="700">
-</div>
 
 - Four hypotheses validated with statistical tests
 - Mann-Whitney U, Chi-squared tests with effect sizes
@@ -360,7 +360,7 @@ A fictional FinTech payment processing company, **SecurePay Solutions**, has bee
 #### 🎯 Fraud Detector — Manual Entry
 
 <div align="center">
-<img src="docs/screenshots/fraud-detector-demo.gif" alt="Fraud Detector Demo" width="700">
+<img src="docs\screenshots\fraudedetect-ezgif.com-video-to-gif-converter.gif" alt="Fraud Detector Demo" width="700">
 </div>
 
 1. Select **Manual Entry** mode
@@ -390,6 +390,11 @@ A fictional FinTech payment processing company, **SecurePay Solutions**, has bee
 ---
 
 #### 🎯 Fraud Detector — Live Simulation
+
+<div align="center">
+<img src="docs\screenshots\Simulation-ezgif.com-video-to-gif-converter.gif" alt="Fraud Detector Demo" width="700">
+</div>
+
 1. Select **Live Simulation** mode
 2. Click **Start Simulation**
 3. Watch 20 real test transactions being classified in real-time
@@ -400,7 +405,7 @@ A fictional FinTech payment processing company, **SecurePay Solutions**, has bee
 #### ⚖️ Threshold & Cost Analysis — Demo
 
 <div align="center">
-<img src="docs/screenshots/threshold-demo.gif" alt="Threshold Demo" width="700">
+<img src="docs\screenshots\Threshold-How-to-Use-ezgif.com-video-to-gif-converter.gif" alt="Threshold Demo" width="700">
 </div>
 
 **Try these scenarios:**
