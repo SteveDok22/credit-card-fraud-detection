@@ -229,4 +229,4 @@ outputs/v1/y_train.csv
 outputs/v1/y_train_resampled.csv
 outputs/v1/robust_scaler.pkl
 outputs/v1/xgb_baseline.pkl
-outputs/v3/autoencoder_model.h5
+outputs/v3/autoencoder_model.h5desktop.ini
