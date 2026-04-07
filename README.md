@@ -263,6 +263,16 @@ A fictional FinTech payment processing company, **SecurePay Solutions**, has bee
 
 ### Existing Features
 
+### Future Features
+
+| Feature | Description | Priority |
+|---------|-------------|----------|
+| Real-Time API | Connect to live transaction stream for continuous monitoring | High |
+| Model Retraining | Scheduled model updates with new labelled data | Medium |
+| Ensemble Voting | Combine XGBoost + Autoencoder scores for unified risk score | Medium |
+| Alert System | Email/SMS notifications for high-risk transactions | Low |
+| Multi-Currency | Support for transactions in different currencies | Low |
+
 #### F1: Interactive Fraud Pattern Study
 
 <div align="center">
