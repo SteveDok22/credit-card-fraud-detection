@@ -397,11 +397,28 @@ A fictional FinTech payment processing company, **SecurePay Solutions**, has bee
 
 ---
 
-#### ⚖️ Threshold & Cost Analysis
-1. Move the **threshold slider** to see how it affects precision and recall
-2. Lower threshold → catches more fraud but more false alarms
-3. Higher threshold → fewer false alarms but misses more fraud
-4. Adjust **cost per missed fraud** and **cost per false alarm** to find the business-optimal threshold
+#### ⚖️ Threshold & Cost Analysis — Demo
+
+<div align="center">
+<img src="docs/screenshots/threshold-demo.gif" alt="Threshold Demo" width="700">
+</div>
+
+**Try these scenarios:**
+
+| Scenario | Threshold | Cost per Missed Fraud | Cost per False Alarm | Result |
+|----------|-----------|----------------------|---------------------|--------|
+| Aggressive Detection | 0.10 | $5,000 | $50 | High recall — catches almost all fraud but many false alarms |
+| Balanced | 0.50 | $5,000 | $50 | Default balance between precision and recall |
+| Conservative | 0.85 | $5,000 | $50 | Very few false alarms but misses some fraud |
+| High-Value Fraud Focus | 0.30 | $20,000 | $50 | When missed fraud is very expensive, lower threshold is optimal |
+| Low Investigation Budget | 0.70 | $5,000 | $500 | When investigations are expensive, raise threshold to reduce false alarms |
+
+**What to observe:**
+1. Move the slider to **0.10** — watch recall jump to nearly 100% but precision drops
+2. Move the slider to **0.85** — precision increases but recall drops significantly
+3. Change **Cost per missed fraud** to $20,000 — notice the cost-optimal threshold shifts lower
+4. Change **Cost per false alarm** to $500 — notice the cost-optimal threshold shifts higher
+5. The **💡 recommendation** at the bottom always shows the cost-optimal threshold for your settings
 
 ---
 
