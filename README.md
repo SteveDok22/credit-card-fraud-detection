@@ -506,7 +506,7 @@ A fictional FinTech payment processing company, **SecurePay Solutions**, has bee
 
 This project was developed using Agile methodology with GitHub Projects as the management tool.
 
-**Board Link:** [Fraud Detection Project Board](https://github.com/users/SteveDok22/projects/XX)
+**Board Link:** [Fraud Detection Project Board](https://github.com/SteveDok22/credit-card-fraud-detection/projects)
 
 ### Sprint Structure
 
