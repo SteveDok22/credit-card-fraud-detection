@@ -433,7 +433,7 @@ A fictional FinTech payment processing company, **SecurePay Solutions**, has bee
 2. Move the slider to **0.85** — precision increases but recall drops significantly
 3. Change **Cost per missed fraud** to $20,000 — notice the cost-optimal threshold shifts lower
 4. Change **Cost per false alarm** to $500 — notice the cost-optimal threshold shifts higher
-5. The **💡 recommendation** at the bottom always shows the cost-optimal threshold for your settings
+
 
 ---
 
