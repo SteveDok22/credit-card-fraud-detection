@@ -131,3 +131,20 @@ def page_hypotheses():
 
     with open("outputs/v2/optimal_threshold.json") as f:
         thresh = json.load(f)['optimal_threshold']
+
+    from sklearn.metrics import f1_score, precision_score, recall_score
+    y_pred_local = (y_proba_local >= thresh).astype(int)
+
+    h4_f1 = f1_score(y_test_local, y_pred_local)
+    h4_prec = precision_score(y_test_local, y_pred_local)
+    h4_rec = recall_score(y_test_local, y_pred_local)
+
+    col1, col2, col3 = st.columns(3)
+    col1.metric("F1 (Fraud)", f"{h4_f1:.4f}")
+    col2.metric("Precision", f"{h4_prec:.4f}")
+    col3.metric("Recall", f"{h4_rec:.4f}")
+
+    if h4_f1 >= 0.80 and h4_prec >= 0.75:
+        st.success("✅ **Validated** — Model meets all business requirements.")
+    else:
+        st.warning("⚠️ **Partially Validated** — See ML Performance page.")
