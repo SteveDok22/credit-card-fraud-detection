@@ -122,4 +122,12 @@ def page_hypotheses():
         "**Statement:** An optimised classifier can achieve F1 >= 0.80 "
         "on the fraud class while maintaining Precision >= 0.75."
     )
-    st.write("See **ML Pipeline Performance** page for full results.")
+
+    with open("outputs/v2/tuning_results.json") as f:
+        tuning = json.load(f)
+
+    y_test_local = pd.read_csv("outputs/v1/y_test.csv").squeeze()
+    y_proba_local = joblib.load("outputs/v2/test_probabilities.pkl")
+
+    with open("outputs/v2/optimal_threshold.json") as f:
+        thresh = json.load(f)['optimal_threshold']
