@@ -943,6 +943,6 @@ For detailed code attribution, see [CODE_ATTRIBUTION.md](docs/CODE_ATTRIBUTION.m
 | Heroku | Cloud deployment |
 
 ### Acknowledgements
-- **Code Institute** — For the learning materials and assessment framework
+- **Code Institute** — For the learning materials and assessment framework.
 
 ---
